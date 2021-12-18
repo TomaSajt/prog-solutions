@@ -1,2 +1,2 @@
-a.exe
-.input.txt
+*.exe
+*.txt
