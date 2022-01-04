@@ -6,7 +6,11 @@ typedef long long ll;
 
 int main() {
     speed;
-    int n, k, f, l;
-    cin >> n >> k >> f >> l;
-
+    int n, m;
+    string s, t;
+    cin >> n;
+    while (n--) {
+        cin >> m >> s >> t;
+        //???????
+    }
 }

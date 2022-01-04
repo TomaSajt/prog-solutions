@@ -23,7 +23,7 @@ int main() {
     while (!pq.empty()) {
         ll u = pq.top().second;
         pq.pop();
-        if(u == n) break;
+        if (u == n) break;
         for (auto& e : g[u]) {
             ll v = e.second;
             ll w = e.first;

@@ -14,25 +14,21 @@ void print_map(const map<long long, long long> &m)
     cerr << "\n";
 }*/
 
-int main()
-{
+int main() {
     map<long long, long long> map;
     long long n, k;
     cin >> n >> k;
-    for (long long i = 0; i < n; i++)
-    {
+    for (long long i = 0; i < n; i++) {
         long long a;
         cin >> a;
         if (map.find(a) == map.end())
-            map.insert({a, 0});
+            map.insert({ a, 0 });
 
         map[a]++;
     }
 
-    while (map.size() > 1)
-    {
-        if (map.begin()->second < map.rbegin()->second)
-        {
+    while (map.size() > 1) {
+        if (map.begin()->second < map.rbegin()->second) {
             auto firstIter = map.begin();
             auto secondIter = next(map.begin());
             auto firstkey = firstIter->first;
@@ -41,8 +37,7 @@ int main()
             auto secondval = secondIter->second;
             auto diff = secondkey - firstkey;
 
-            if (k / firstval < diff)
-            {
+            if (k / firstval < diff) {
                 cout << (map.rbegin()->first - map.begin()->first - k / firstval) << endl;
                 return 0;
             }
@@ -52,8 +47,7 @@ int main()
             secondIter->second += firstval;
             map.erase(firstkey);
         }
-        else
-        {
+        else {
             auto rfirstIter = map.rbegin();
             auto rsecondIter = next(map.rbegin());
             auto rfirstkey = rfirstIter->first;
@@ -62,8 +56,7 @@ int main()
             auto rsecondval = rsecondIter->second;
             auto diff = rfirstkey - rsecondkey;
 
-            if (k / rfirstval < diff)
-            {
+            if (k / rfirstval < diff) {
                 cout << (map.rbegin()->first - map.begin()->first - k / rfirstval) << endl;
                 return 0;
             }

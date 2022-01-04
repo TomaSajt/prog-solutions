@@ -36,18 +36,6 @@ int test_pos(int x, int y) {
     return res;
 }
 
-/*
-4
-4
-####
-##O#
-#OO#
-####
-3
-0 0
-1 2
-2 1
-*/
 int main() {
     cin >> w; cin.ignore();
     cin >> h; cin.ignore();
