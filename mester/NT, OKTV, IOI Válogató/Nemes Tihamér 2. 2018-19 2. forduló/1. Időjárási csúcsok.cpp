@@ -8,8 +8,9 @@ int main() {
     speed;
     int n, k, l;
     cin >> n >> k >> l;
-    vector<int> a(n);
-    for (int& i : a) cin >> i;
-    
+    vector<int> v(n);
+    for (int& i : v) cin >> i;
+
+
 
 }
