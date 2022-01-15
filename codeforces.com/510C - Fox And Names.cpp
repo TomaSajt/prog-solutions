@@ -7,7 +7,6 @@ stack<int> s;
 vector<int> tsort;
 void dfs(int u) {
     visited[u] = true;
-
     for (auto it : graph[u]) {
         if (!visited[it])
             dfs(it);

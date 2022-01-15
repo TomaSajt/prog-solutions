@@ -11,6 +11,5 @@ int main() {
             m++;
         steps++;
     }
-
     cout << steps + n - m << endl;
 }

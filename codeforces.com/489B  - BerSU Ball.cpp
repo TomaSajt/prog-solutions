@@ -17,15 +17,9 @@ int main() {
     int i = 0, j = 0, c = 0;
     while (i < n && j < m) {
         int dif = boys[i] - girls[j];
-        if (dif > 1)
-            j++;
-        else if (dif < -1)
-            i++;
-        else {
-            i++;
-            j++;
-            c++;
-        }
+        if (dif > 1) j++;
+        else if (dif < -1) i++;
+        else i++, j++, c++;
     }
     cout << c << endl;
 }

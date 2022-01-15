@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define pb push_back
-#define speed ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define speed ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
 #define INF (INT_MAX / 2)
 using namespace std;
 typedef long long ll;
@@ -19,7 +19,6 @@ int main() {
     }
     vector<int> dist;
     vector<int> vis;
-
     while (q--) {
         dist.assign(n + 1, INF);
         vis.assign(n + 1, false);

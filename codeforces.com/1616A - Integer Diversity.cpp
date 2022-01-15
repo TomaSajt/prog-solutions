@@ -15,10 +15,10 @@ int main() {
         c = 0;
         for (int i = 0; i < m; i++) {
             cin >> a;
-            a=abs(a);
-            if(counts[a] < 2) c++;
+            a = abs(a);
+            if (counts[a] < 2) c++;
             counts[a]++;
         }
-        cout << c-(counts[0] >= 2) << endl;
+        cout << c - (counts[0] >= 2) << endl;
     }
 }
