@@ -6,11 +6,9 @@ int i = 0;
 map<int, int> parent;
 map<int, int> sizes;
 map<string, int> nti;
-map<int, string> itn;
 
 void create_(string name) {
     nti[name] = i;
-    itn[i] = name;
     sizes[i] = 1;
     parent[i] = i;
     i++;
@@ -38,9 +36,8 @@ int main() {
     while (t--) {
         int n;
         cin >> n;
-        i = 0, parent.clear(), sizes.clear(), nti.clear(), itn.clear();
-        int m = n;
-        while (m--) {
+        i = 0, parent.clear(), sizes.clear(), nti.clear();
+        while (n--) {
             string name1, name2;
             cin >> name1 >> name2;
             if (nti.find(name1) == nti.end()) create_(name1);
