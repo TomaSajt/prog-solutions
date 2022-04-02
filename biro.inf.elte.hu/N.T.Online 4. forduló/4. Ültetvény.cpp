@@ -1,3 +1,5 @@
+// 100/100 - could've put the functions into a class
+
 #include <bits/stdc++.h>
 #define speed ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
 #pragma GCC optimize ("Ofast")
