@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
-#define pb push_back
 #define speed ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
-#pragma GCC optimize ("Ofast")
 using namespace std;
-typedef long long ll;
 
 
 int DP[3001][3001];
@@ -26,7 +23,6 @@ int main() {
         s.pop();
     }
     cout << endl;
-
 }
 
 
