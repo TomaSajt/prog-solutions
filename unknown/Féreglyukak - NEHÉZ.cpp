@@ -31,21 +31,15 @@ int main() {
     }
     cout << (neg_cycle ? "YES" : "NO") << endl;
     if (neg_cycle) {
-        set<int> seen;
+        for (int i = 0;i < n;i++) last_updated = parent[last_updated];
         stack<int> s;
-        int curr = last_updated;
-        while (seen.find(curr) == seen.end()) {
-            s.push(curr);
-            seen.insert(curr);
-            curr = parent[curr];
+        s.push(last_updated);
+        for (int i = parent[last_updated]; i != last_updated; i = parent[i]) s.push(i);
+        cout << last_updated << ' ';
+        while (!s.empty()) {
+            cout << s.top() << ' '; s.pop();
         }
-        int end = curr;
-        cout << end << ' ';
-        while (s.top() != end) {
-            cout << s.top() << ' ';
-            s.pop();
-        }
-        cout << end << endl;
+        cout << endl;
     }
     return 0;
 }
