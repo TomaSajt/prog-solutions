@@ -4,6 +4,7 @@
 using namespace std;
 bool adj[6][6];
 int main() {
+    speed;
     int a, b;
     cin >> a;
     while (cin >> a >> b) adj[a][b] = adj[b][a] = 1;
