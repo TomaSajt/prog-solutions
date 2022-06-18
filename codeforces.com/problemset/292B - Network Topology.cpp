@@ -1,31 +1,26 @@
-#include <vector>
-#include <iostream>
+#include <bits/stdc++.h>
+#define speed ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+#pragma GCC optimize ("Ofast")
 using namespace std;
 
 int main() {
-    int n, m, c = -1;
+    speed;
+    int n, m, a, b, c = -1;
     cin >> n >> m;
-    vector<int> neighbourCount(n + 1);
-    for (size_t i = 0; i < m; i++) {
-        int a, b;
-        cin >> a >> b;
-        neighbourCount[a]++;
-        neighbourCount[b]++;
-    }
-    for (size_t i = 1; i <= n; i++) {
-        if (neighbourCount[i] >= 3) {
-            if (c != -1) {
-                cout << "unknown topology" << endl;
-                return 0;
-            }
-            c = i;
+    vector<int> d(n + 1);
+    while (cin >> a >> b) d[a]++, d[b]++;
+    for (int i = 1; i <= n; i++) {
+        if (d[i] < 3) continue;
+        if (c != -1) {
+            cout << "unknown topology" << endl;
+            return 0;
         }
+        c = i;
     }
     if (c != -1) {
-        cout << (neighbourCount[c] == m ? "star topology" : "unknown topology") << endl;
+        cout << (d[c] == m ? "star topology" : "unknown topology") << endl;
         return 0;
     }
     cout << (n == m ? "ring topology" : "bus topology") << endl;
-
     return 0;
 }
