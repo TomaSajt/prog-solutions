@@ -1,24 +1,21 @@
 #include <bits/stdc++.h>
+#define speed ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+#pragma GCC optimize ("Ofast")
 using namespace std;
-#define ll long long
-#define MOD 1000000007;
-int n, k;
-vector<vector<int>> memory;
-ll solve(int base, int length) {
-    if (length == 1)
-        return 1;
-    if (memory[base][length] != -1)
-        return memory[base][length];
-    ll sum = 0;
-    for (int i = 1; i * base <= n; i++) {
-        sum += solve(i * base, length - 1);
-    }
-    return memory[base][length] = sum % MOD;
-}
-
+long long memory[2001][2001], n, k;
 int main() {
+    speed;
     cin >> n >> k;
-
-    memory = vector<vector<int>>(n + 1, vector<int>(k + 2, -1));
-    cout << solve(1, k + 1) << endl;
+    for (int i = 1;i <= 2000;i++) {
+        memory[i][0] = 1;
+    }
+    for (int l = 1; l <= k;l++) {
+        for (int b = 1; b <= n; b++) {
+            for (int i = 1; i * b <= n;i++) {
+                memory[b][l] += memory[i * b][l - 1];
+                memory[b][l] %= 1000000007;
+            }
+        }
+    }
+    cout << memory[1][k] << endl;
 }
