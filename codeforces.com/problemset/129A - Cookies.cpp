@@ -4,6 +4,7 @@
 using namespace std;
 
 int main() {
+    speed;
     int n, a, o = 0, s = 0;
     cin >> n;
     while (cin >> a) {
