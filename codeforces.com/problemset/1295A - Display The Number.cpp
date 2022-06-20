@@ -1,20 +1,10 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#define speed ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 using namespace std;
-void test();
 int main() {
-    int t; cin >> t;
-    for (int i = 0; i < t; i++) test();
-    return 0;
-}
-void test() {
+    speed;
     int n; cin >> n;
-    string res;
-    if (n % 2 == 0) {
-        res = string(n / 2, '1');
+    while (cin >> n) {
+        cout << "17"[n % 2] << string(n / 2 - 1, '1') << endl;
     }
-    else {
-        res = string(n / 2 - 1, '1');
-        cout << "7";
-    }
-    cout << res << endl;
 }
