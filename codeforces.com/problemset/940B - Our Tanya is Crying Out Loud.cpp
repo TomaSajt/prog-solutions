@@ -1,10 +1,13 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#define speed ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 using namespace std;
-int main()     {
-    long long x, k, A, B, c = 0;
+typedef long long ll;
+int main() {
+    speed;
+    ll x, k, A, B, c = 0;
     cin >> x >> k >> A >> B;
-    while (x > 1)         {
-        long long r = x % k;
+    while (x > 1) {
+        ll r = x % k;
         x -= r;
         c += r * A;
         if (A * x * (k - 1) <= B * k)
