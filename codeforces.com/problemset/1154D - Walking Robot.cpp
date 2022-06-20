@@ -1,25 +1,21 @@
 #include <bits/stdc++.h>
+#define speed ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 using namespace std;
 int main() {
-    int n, battery, accumulatorCapacity;
-    cin >> n >> battery >> accumulatorCapacity;
-    int accumulator = accumulatorCapacity, currPos = 0;
-    vector<bool> isLit(n);
-    for (int i = 0, temp; i < n; i++) {
-        cin >> temp;
-        isLit[i] = temp == 1;
+    speed;
+    int n, acc, cap, bat, pos = 0;
+    cin >> n >> bat >> cap;
+    acc = cap;
+    vector<bool> lit(n);
+    for (int i = 0, tmp; i < n; i++) {
+        cin >> tmp;
+        lit[i] = tmp == 1;
     }
-    while (currPos != n && (accumulator || battery)) {
-        if (battery && accumulator != accumulatorCapacity && isLit[currPos]) {
-            battery--;
-            accumulator++;
-        }
-        else if (accumulator)
-            accumulator--;
-
-        else if (battery)
-            battery--;
-        currPos++;
+    while ((acc || bat) && pos < n) {
+        if (acc < cap && bat > 0 && lit[pos]) bat--, acc++;
+        else if (acc > 0) acc--;
+        else if (bat > 0) bat--;
+        pos++;
     }
-    cout << currPos << endl;
+    cout << pos << endl;
 }
