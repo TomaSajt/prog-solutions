@@ -1,0 +1,9 @@
+getFastaNames←1∘↓¨({'>'=⊃⍵}¨⊢⍤/⊢)
+getFastaStrings←(↑,/)¨({'>'≠⊃⍵}¨⊆⊢)
+acgtocc←{⍵∘(+/⍤=)¨'ACGT'}
+
+text←⊃⎕NGET'C:/Users/Toma/Downloads/rosalind_cons(2).txt'1
+table←↑acgtocc¨↓⍉↑getFastaStrings text
+out1←↓(↑{⍵,': '}¨'ACGT'),⍕⍉table
+out2←'ACGT'⌷⍨⊂⊣/⍒⍤1⊢table
+'out.txt'⎕NPUT⍨∘⊂out1,⍨⊂out2

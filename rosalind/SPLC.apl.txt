@@ -1,0 +1,5 @@
+table←4 4 4⍴codonTable
+strings←getFastaStrings input
+introns←1↓strings
+dna←⊃strings
+introns({({∧\~'.'=⍵}⊢⍤/⊢){table⌷⍨'UCAG'⍳⍵}¨↓({3,⍨3÷⍨⍴⍵}⍴⊢)⍵}∘('U'@{'T'=⍵}))⍤{s←⍵⋄(~⊃∨/{(1@((⍳≢⍵)-⎕IO-⍸⍵⍷s))⍵⍷s}¨⍺)/s}dna

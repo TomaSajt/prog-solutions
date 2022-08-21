@@ -1,0 +1,4 @@
+getFastaNames←1∘↓¨({'>'=⊃⍵}¨⊢⍤/⊢)
+getFastaStrings←(↑,/)¨({'>'≠⊃⍵}¨⊆⊢)
+acgtocc←{⍵∘(+/⍤=)¨'ACGT'}
+codonTable←'FFLLSSSSYY..CC.WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
