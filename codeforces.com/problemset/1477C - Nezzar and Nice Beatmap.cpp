@@ -4,11 +4,11 @@
 using namespace std;
 #define int long long
 
-struct point {
+struct p {
     int x, y;
 };
 
-inline int dist(point a, point b) {
+inline int dist(p a, p b) {
     int dx = a.x - b.x, dy = a.y - b.y;
     return dx * dx + dy * dy;
 }
@@ -18,7 +18,7 @@ int main() {
     speed;
     int n;
     cin >> n;
-    vector<point> points(n);
+    vector<p> points(n);
     for (auto& p : points) cin >> p.x >> p.y;
     vector<bool> used(n);
     int prev = 0;

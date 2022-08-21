@@ -6,7 +6,7 @@ using namespace std;
 typedef long long ll;
 
 
-struct point {
+struct p {
     ll x, y;
 };
 
@@ -14,16 +14,16 @@ bool betw(int a, int b, int n) {
     return max(a, b) >= n && n >= min(a, b);
 }
 
-int dir(point a, point b, point c) {
+int dir(p a, p b, p c) {
     ll x = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
     return (x > 0) - (x < 0);
 }
 
-bool onseg(point a, point b, point c) {
+bool onseg(p a, p b, p c) {
     return dir(a, b, c) == 0 && betw(a.x, b.x, c.x) && betw(a.y, b.y, c.y);
 }
 
-bool intersect(point a, point b, point c, point d) {
+bool intersect(p a, p b, p c, p d) {
     return (dir(a, b, c) * dir(a, b, d) == -1) && (dir(c, d, a) * dir(c, d, b) == -1);
 }
 
@@ -33,10 +33,10 @@ int n, m;
 int main() {
     speed;
     cin >> n >> m;
-    vector<point> poly(n);
+    vector<p> poly(n);
     for (auto& p : poly) cin >> p.x >> p.y;
     while (m--) {
-        point tp;
+        p tp;
         cin >> tp.x >> tp.y;
         bool stop = false;
         for (int i = 0;i < n;i++) {

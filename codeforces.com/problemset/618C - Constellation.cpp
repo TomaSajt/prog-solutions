@@ -4,11 +4,11 @@
 #pragma GCC optimize ("Ofast")
 using namespace std;
 
-struct point {
+struct p {
     long long x, y;
 };
 
-vector<point> points;
+vector<p> points;
 
 inline bool online(int a, int b, int p) {
     return (points[b].x - points[a].x) * (points[p].y - points[a].y) == (points[p].x - points[a].x) * (points[b].y - points[a].y);
