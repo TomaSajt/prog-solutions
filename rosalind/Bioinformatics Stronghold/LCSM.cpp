@@ -4,15 +4,18 @@
 // The code is mostly based on William Fiset's LongestCommonSubstring implementation, however this version has multiple improvements over that
 // Link: https://github.com/williamfiset/Algorithms/blob/347b0bf6e5712f012334b708d793d6904e8b82cf/src/main/java/com/williamfiset/algorithms/strings/LongestCommonSubstring.java
 //
-// o(n) suffix array compute method from https://www.cs.cmu.edu/~guyb/realworld/papersS04/KaSa03.pdf
+// O(n) suffix array compute method from https://www.cs.cmu.edu/~guyb/realworld/papersS04/KaSa03.pdf
 
-
-inline bool leq(int a1, int a2, int b1, int b2) { // lexic. order for pairs
+// lexic. order for pairs
+inline bool leq(int a1, int a2, int b1, int b2) {
     return(a1 < b1 || a1 == b1 && a2 <= b2);
-}                                                   // and triples
+}
+
+// and triples
 inline bool leq(int a1, int a2, int a3, int b1, int b2, int b3) {
     return(a1 < b1 || a1 == b1 && leq(a2, a3, b2, b3));
 }
+
 // stably sort a[0..n-1] to b[0..n-1] with keys in 0..K from r
 void radix_pass(const vector<int>& a, vector<int>& b, const vector<int>& r, int r_offset, int n, int K) { // count occurrences
     vector<int> c(K + 1, 0);
@@ -92,12 +95,9 @@ string retrieve_string(int i, int len, const vector<int>& s, int shift) {
     return str;
 }
 
-void solve(const vector<string>& strings, vector<string>& lcs_list) {
-    if (strings.size() == 0) return;
-    if (strings.size() == 1) {
-        lcs_list.push_back(strings[0]);
-        return;
-    }
+vector<string> solve(const vector<string>& strings) {
+    if (strings.size() == 0) return {};
+    if (strings.size() == 1) return { strings[0] };
     int num_sentinels = strings.size();
     int n = num_sentinels;
     for (auto& str : strings) n += str.size();
@@ -115,9 +115,7 @@ void solve(const vector<string>& strings, vector<string>& lcs_list) {
         pos_col_map[k++] = i; // ith sentinel belongs to string i
     }
 
-
     int shift = num_sentinels - lowest_ascii_value + 1; // + 1 because the lowest sentinel has to be at least 1 for compute_suffix_array
-
 
     vector<int> text(n + 3), sa(n + 3); // There needs to be 3 extra zeroes at the end for compute_suffix_array
     int sentinel = 1;
@@ -134,7 +132,7 @@ void solve(const vector<string>& strings, vector<string>& lcs_list) {
     text.resize(n);
     sa.resize(n);
 
-    // compute longest common prefix array
+    // compute longest common prefix array with kasai's algorithm
     vector<int> lcp(n), inv(n);
     for (int i = 0; i < n; i++) inv[sa[i]] = i;
     for (int i = 0, len = 0; i < n; i++) {
@@ -156,7 +154,7 @@ void solve(const vector<string>& strings, vector<string>& lcs_list) {
     int best_lcs_len = 0;
     counting_map<int> col_counts;
     int lo = num_sentinels, hi = num_sentinels;
-
+    unordered_set<string> lcs_set;
     // window is on the interval [lo, hi)
     while (true) {
         bool shrink_window = hi == n || col_counts.count_different() >= k;
@@ -175,24 +173,24 @@ void solve(const vector<string>& strings, vector<string>& lcs_list) {
         if (col_counts.count_different() < k) continue;
 
         if (min_window_lcp >= best_lcs_len) {
-            if (min_window_lcp > best_lcs_len) lcs_list.clear();
+            if (min_window_lcp > best_lcs_len) lcs_set.clear();
             best_lcs_len = min_window_lcp;
-            lcs_list.push_back(retrieve_string(sa[lo], min_window_lcp, text, shift));
+            lcs_set.insert(retrieve_string(sa[lo], min_window_lcp, text, shift));
         }
     }
+    return vector<string>(lcs_set.begin(), lcs_set.end());
 }
 
 
-ifstream in("C:/Users/Toma/Downloads/rosalind_lcsm.txt");
 int main() {
     vector<string> strings;
+    ifstream in("C:/Users/Toma/Downloads/rosalind_lcsm.txt");
     auto fasta = rosalind::getFasta(in);
     for (auto& [name, str] : fasta) strings.push_back(str);
-    vector<string> solution;
     auto start = chrono::high_resolution_clock::now();
-    solve(strings, solution);
+    auto solution = solve(strings);
     auto end = chrono::high_resolution_clock::now();
     cout << "elapsed time: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << "ms" << endl;
     cout << "found " << solution.size() << " solution" << (solution.size() == 1 ? "" : "s") << ':' << endl;
-    for (auto& i : solution) cout << i << endl;
+    log(cout, solution, '\n');
 }

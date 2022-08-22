@@ -20,11 +20,23 @@ namespace rosalind {
     }
 }
 
-ostream& operator<<(ostream& stream, const vector<int>& vec) {
-    for (auto& i : vec) stream << i << ' ';
-    return stream << endl;
+
+template <typename T>
+void log(ostream& stream, const vector<T>& vec, char sep) {
+    bool first = true;
+    for (auto& i : vec) {
+        if (!first) stream << sep;
+        stream << i;
+        first = false;
+    }
+    stream << endl;
 }
 
+template <typename T>
+ostream& operator<<(ostream& stream, const vector<T>& vec) {
+    log(stream, vec, ' ');
+    return stream;
+}
 
 template <typename T>
 class counting_map {
