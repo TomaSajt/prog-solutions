@@ -195,7 +195,7 @@ int main() {
     for (auto& [name, str] : fasta) {
         strings.push_back(str);
     }
-    strings = { "willy", "winners" };
+
     int num_sentinels = strings.size();
     int n = num_sentinels;
     for (auto& str : strings) n += str.size();
@@ -241,7 +241,7 @@ int main() {
     bruh.construct_sa();
     bruh.construct_lcp();
     auto sa = bruh.sa;
-    cout << (SA == sa) << endl;
+    cout << (SA == sa ? "STILL WORKS" : "DOESN'T WORK ANYMORE") << endl;
 
     //cout << sa;
     auto lcp = bruh.lcp;
