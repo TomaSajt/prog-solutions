@@ -15,3 +15,8 @@ vector<pair<string, string>> rosalind::getFasta(istream& stream) {
     }
     return vec;
 }
+
+ostream& operator<<(ostream& stream, const vector<int>& vec) {
+    for (auto& i : vec) stream << i << ' ';
+    return stream << endl;
+}

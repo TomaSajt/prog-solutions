@@ -1,0 +1,5 @@
+subs←⊃,/((1-⎕IO)∘+∘⍳∘≢,/¨⊂)⊃({⊂⊃⍋≢¨⍵}⌷⊢)list
+⊃subs⌷⍨⊂1⍴(⊃⌽⍸∧/∨/¨subs∘.⍷list)
+
+
+Out of memory as this is slow af
