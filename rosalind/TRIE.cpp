@@ -1,5 +1,4 @@
 #include "_helpers.hpp"
-typedef long long ll;
 
 int counter = 1;
 
