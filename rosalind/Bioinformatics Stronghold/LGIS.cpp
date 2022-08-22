@@ -1,4 +1,4 @@
-#include "_helpers.hpp"
+#include "../_helpers.hpp"
 
 ifstream in("C:/Users/Toma/Downloads/rosalind_lgis.txt");
 ofstream out("C:/Users/Toma/Downloads/rosalind_lgis_out.txt");

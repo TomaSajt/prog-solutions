@@ -1,6 +1,4 @@
-#include "_helpers.hpp"
-typedef long long ll;
-#include <bits/stdc++.h>
+#include "../_helpers.hpp"
 
 bool overlap(const string& a, const string& b, int k) {
     if (a == b) return false;
