@@ -4,7 +4,7 @@ typedef long long ll;
 struct pont {
     ll x, y, ind;
 };
-inline bool turnp(pont a, pont b, pont c) {
+inline bool turnp(pont& a, pont& b, pont& c) {
     return (b.y - a.y) * (c.x - a.x) > (c.y - a.y) * (b.x - a.x);
 }
 int main() {
