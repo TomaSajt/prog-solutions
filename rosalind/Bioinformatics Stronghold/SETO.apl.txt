@@ -1,0 +1,5 @@
+lines←⊃⎕NGET'rosalind_seto.txt'1
+l1 l2 l3←lines
+u←1-⎕IO-⍳⍎l1
+out←l2({'{','}',⍨⊃⍪/1↓,(⊂', '),⍪⍕¨⍵}¨⍤{(⍺∪⍵)(⍺∩⍵)(⍺~⍵)(⍵~⍺)(u~⍺)(u~⍵)}⍥(⍎¨~⍤∊∘', {}'⊆⊢))l3
+'out.txt'⎕NPUT⍨∘⊂out
