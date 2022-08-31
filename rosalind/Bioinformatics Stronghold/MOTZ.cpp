@@ -6,7 +6,7 @@ vector<vector<ll>> dp(300, vector<ll>(300, -1));
 ll solve(const string& str, int s, int e) {
     if (s > e) return 1;
     if (dp[s][e] != -1) return dp[s][e];
-    ll res = 0;
+    ll res = solve(str, s + 1, e);
     for (int i = s + 1; i <= e; i++) {
         if (bp[str[s]] == str[i]) {
             res += solve(str, s + 1, i - 1) * solve(str, i + 1, e);
