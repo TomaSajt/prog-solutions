@@ -22,8 +22,6 @@ ll solve(const string& str, int s, int e) {
 }
 
 int main() {
-    ifstream in("C:/Users/Toma/Downloads/rosalind_kmp(4).txt");
-    ofstream out("C:/Users/Toma/Desktop/out_kmp.txt");
     string str = rosalind::getFasta(cin)[0].second;
     int n = str.size();
     cout << solve(str, 0, n - 1);
