@@ -11,8 +11,7 @@ namespace rosalind {
             getline(stream, line);
             string name = line.substr(1);
             string str = "";
-            while (!stream.eof() && stream.peek() != '>') {
-                getline(stream, line);
+            while (!stream.eof() && stream.peek() != '>' && getline(stream, line)) {
                 str += line;
             }
             vec.push_back({ name,str });
