@@ -1,6 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
 namespace rosalind {
     vector<pair<string, string>> getFasta(istream& stream) {
@@ -29,7 +30,6 @@ void log(ostream& stream, const vector<T>& vec, char sep) {
         stream << i;
         first = false;
     }
-    stream << endl;
 }
 
 template <typename T>
