@@ -1,0 +1,4 @@
+n←⍎⊃lines
+numss strs←n(↓,⍥⊂↑)1↓lines
+nums←⍎¨numss
+nums{⊃(⊂∘⍒⌷⊢)↓⍵,⍨⍉↑,⊂⍺∘{⌈/{≢⍵}⌸,⍺∘.-{+/mimass¨⍵}¨compspec ⍵}¨⍵}strs
