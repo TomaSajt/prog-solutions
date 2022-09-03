@@ -17,6 +17,6 @@ int main() {
     }
     area2 = abs(area2);
     // Picks theorem: A = i + b/2 - 1
-    // Therefore 2i = 2A - b + 2
+    // Therefore i = (2A - b) / 2 + 1
     cout << (area2 - b) / 2 + 1 << ' ' << b;
 }
