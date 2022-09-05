@@ -1,5 +1,0 @@
-getFastaNames←1∘↓¨({'>'=⊃⍵}¨⊢⍤/⊢)
-getFastaStrings←(↑,/)¨({'>'≠⊃⍵}¨⊆⊢)
-
-↑({⊃⍸(⌈/=⊢)(≢÷⍨(+/∊∘'GC'))¨getFastaStrings⍵}⌷getFastaNames)
-{100×⌈/(≢÷⍨(+/∊∘'GC'))¨getFastaStrings⍵}
