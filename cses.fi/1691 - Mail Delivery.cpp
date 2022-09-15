@@ -2,30 +2,19 @@
 #define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
 
-vector<set<int>> g;
-vector<bool> vis;
-
-void dfs(int u) {
-    if (vis[u]) return;
-    vis[u] = 1;
-    for (int v : g[u]) dfs(v);
-}
-
 int main() {
     speed;
     int n, m;
     cin >> n >> m;
-    g.resize(n + 1);
-    vis.resize(n + 1);
-    while (m--) {
+    vector<set<int>> g(n + 1);
+    for (int i = 0; i < m; i++) {
         int a, b;
         cin >> a >> b;
         g[a].insert(b);
         g[b].insert(a);
     }
-    dfs(1);
     for (int i = 1; i <= n; i++) {
-        if (g[i].size() % 2 == 1 || (!vis[i] && !g[i].empty())) {
+        if (g[i].size() % 2 == 1) {
             cout << "IMPOSSIBLE";
             return 0;
         }
@@ -43,6 +32,10 @@ int main() {
             cur = nei;
         }
         path.push_back(cur);
+    }
+    if (path.size() != m + 1) {
+        cout << "IMPOSSIBLE";
+        return 0;
     }
     for (auto u : path) cout << u << ' ';
 }
