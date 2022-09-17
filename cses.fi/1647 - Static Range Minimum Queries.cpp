@@ -9,10 +9,9 @@ int main() {
     int l = log2l(n) + 1;
     vector<vector<int>> st(n, vector<int>(l, 0));
     for (int i = 0; i < n; i++) cin >> st[i][0];
-    for (int j = 1; j <= l; j++) {
-        int o = 1 << (j - 1);
-        for (int i = 0; i < n - ((1 << j) - 1); i++) {
-            st[i][j] = min(st[i][j - 1], st[i + o][j - 1]);
+    for (int j = 1; (1 << j) <= n; j++) {
+        for (int i = 0; i + (1 << j) - 1 < n; i++) {
+            st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
         }
     }
     while (cin >> a >> b) {
