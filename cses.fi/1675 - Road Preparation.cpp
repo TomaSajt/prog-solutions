@@ -3,8 +3,7 @@
 using namespace std;
 typedef long long ll;
 
-vector<int> parent;
-vector<int> depth;
+vector<int> parent, depth;
 
 int find(int u) {
     if (parent[u] == u) return u;
@@ -24,7 +23,7 @@ int main() {
     cin >> n >> m;
     parent.resize(n + 1);
     iota(parent.begin(), parent.end(), 0);
-    depth.resize(n + 1), 1;
+    depth.resize(n + 1, 1);
     vector<pair<int, pair<int, int>>> edges(m);
     for (auto& [w, p] : edges) cin >> p.first >> p.second >> w;
     sort(edges.begin(), edges.end());
