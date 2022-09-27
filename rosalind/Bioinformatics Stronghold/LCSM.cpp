@@ -16,16 +16,18 @@ inline bool leq(int a1, int a2, int a3, int b1, int b2, int b3) {
     return(a1 < b1 || a1 == b1 && leq(a2, a3, b2, b3));
 }
 
-// stably sort a[0..n-1] to b[0..n-1] with keys in 0..K from r
-void radix_pass(const vector<int>& a, vector<int>& b, const vector<int>& r, int r_offset, int n, int K) { // count occurrences
+// stably sort vals[0..n-1] to res[0..n-1] with keys in 0..K from str
+void radix_pass(const vector<int>& vals, vector<int>& res, const vector<int>& str, int offset, int n, int K) {
     vector<int> c(K + 1, 0);
-    for (int i = 0; i < n; i++) c[r[a[i] + r_offset]]++;    // count occurences
-    for (int i = 0, sum = 0; i <= K; i++) { // exclusive prefix sums
-        int t = c[i];
-        c[i] = sum;
-        sum += t;
+    for (int i = 0; i < n; i++) { // count occurences
+        int val = str[vals[i] + offset];
+        c[val]++;
     }
-    for (int i = 0; i < n; i++) b[c[r[a[i] + r_offset]]++] = a[i];      // sort
+    for (int i = 1; i <= K; i++) c[i] += c[i - 1]; // exclusive prefix sums
+    for (int i = n - 1; i >= 0; i--) { // sort
+        int val = str[vals[i] + offset];
+        res[--c[val]] = vals[i];
+    }
 }
 
 // find the suffix array SA of s[0..n-1] in {1..K}^n
@@ -34,9 +36,11 @@ void compute_suffix_array(vector<int>& s, vector<int>& SA, int n, int K) {
     int n0 = (n + 2) / 3, n1 = (n + 1) / 3, n2 = n / 3, n02 = n0 + n2;
     vector<int> s12(n02 + 3, 0), SA12(n02 + 3, 0), s0(n0), SA0(n0);
 
-    // generate positions of mod 1 and mod  2 suffixes
+    // generate positions of mod 1 and mod 2 suffixes
     // the "+(n0-n1)" adds a dummy mod 1 suffix if n%3 == 1
-    for (int i = 0, j = 0; i < n + (n0 - n1); i++) if (i % 3 != 0) s12[j++] = i;
+    for (int i = 0, j = 0; i < n + (n0 - n1); i++) {
+        if (i % 3 != 0) s12[j++] = i;
+    }
 
     // lsb radix sort the mod 1 and mod 2 triples
     radix_pass(s12, SA12, s, 2, n02, K);
@@ -183,10 +187,10 @@ vector<string> solve(const vector<string>& strings) {
 
 
 int main() {
-    vector<string> strings;
-    ifstream in("C:/Users/Toma/Downloads/rosalind_lcsm.txt");
-    auto fasta = rosalind::getFasta(in);
-    for (auto& [name, str] : fasta) strings.push_back(str);
+    vector<string> strings = { "mississipi", "dadsadssipasdsad", "adasduahdisdhoadisipcaijdisa" };
+    //ifstream in("C:/Users/Toma/Downloads/rosalind_lcsm.txt");
+    //auto fasta = rosalind::getFasta(in);
+    //for (auto& [name, str] : fasta) strings.push_back(str);
     auto start = chrono::high_resolution_clock::now();
     auto solution = solve(strings);
     auto end = chrono::high_resolution_clock::now();
