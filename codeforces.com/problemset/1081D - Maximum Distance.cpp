@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
-
 vector<int> par, dep, cnt;
 
 int find(int u) {
