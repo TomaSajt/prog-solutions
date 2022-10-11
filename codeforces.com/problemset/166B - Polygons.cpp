@@ -30,13 +30,11 @@ int main() {
     cin >> n;
     vector<point> v(n);
     for (auto& p : v) cin >> p.x >> p.y;
-    iter_swap(v.begin(), min_element(v.begin(), v.end(), [](auto a, auto b) { return a.x < b.x || (a.x == b.x && a.y < b.y); })); // put left-bottom point to index 0
-    sort(v.begin() + 1, v.end(), [&](auto p1, auto p2) { return turn(v[0], p1, p2) == -1; }); // sort others counter-clockwise
     point p;
     cin >> p.x;
     while (cin >> p.x >> p.y) {
         // only check points inside main sector
-        if (turn(v[0], v[n - 1], p) != 1 || turn(v[0], v[1], p) != -1) {
+        if (turn(v[0], v[n - 1], p) != -1 || turn(v[0], v[1], p) != 1) {
             cout << "NO";
             return 0;
         }
@@ -44,7 +42,7 @@ int main() {
         int l = 1, r = n - 1;
         while (r - l > 1) {
             int c = (l + r) / 2;
-            if (turn(v[0], v[c], p) == 1) r = c;
+            if (turn(v[0], v[c], p) == -1) r = c;
             else l = c;
         }
         // check triangle and (0,l) side
