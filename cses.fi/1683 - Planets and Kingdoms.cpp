@@ -3,9 +3,8 @@
 using namespace std;
 
 vector<vector<int>> g, gt;
-vector<int> ord;
 vector<bool> vis;
-vector<int> ids;
+vector<int> ord, ids;
 
 int curr_id = 0;
 void dfs(int u) {
