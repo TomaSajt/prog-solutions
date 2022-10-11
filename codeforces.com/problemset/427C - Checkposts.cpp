@@ -47,7 +47,7 @@ int main() {
     for (int i = 1; i <= n; i++) {
         if (!vis[i]) dfs(i);
     }
-    
+
     reverse(ord.begin(), ord.end());
     vis.assign(n + 1, 0);
 
@@ -58,11 +58,10 @@ int main() {
         }
     }
 
-    ll sum = 0;
-    ll res = 1;
+    ll sum = 0, res = 1;
     for (auto& comp : comps) {
-        ll val = costs[*min_element(comp.begin(), comp.end(), [&](int a, int b) {return costs[a] < costs[b]; })];
-        ll c = count_if(comp.begin(), comp.end(), [&](int a) {return costs[a] == val; });
+        ll val = costs[*min_element(comp.begin(), comp.end(), [&](int a, int b) { return costs[a] < costs[b]; })];
+        ll c = count_if(comp.begin(), comp.end(), [&](int a) { return costs[a] == val; });
         sum += val;
         res *= c;
         res %= MOD;
