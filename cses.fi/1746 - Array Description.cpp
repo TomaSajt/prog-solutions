@@ -6,37 +6,32 @@ const int mod = 1e9 + 7;
 
 int main() {
     speed;
-    int n, m;
-    cin >> n >> m;
-    vector<int> v(n);
-    for (auto& a : v) cin >> a;
-    vector<vector<ll>> dp(n, vector<ll>(m + 1, 0));
-    if (v[0] != 0) dp[0][v[0]] = 1;
-    else {
-        for (int j = 1; j <= m; j++) {
-            dp[0][j] = 1;
-        }
-    }
-    for (int i = 1; i < n; i++) {
-        if (v[i] != 0) {
-            int a = v[i];
-            dp[i][a] = dp[i - 1][a];
-            if (a != 1) dp[i][a] += dp[i - 1][a - 1];
-            if (a != m) dp[i][a] += dp[i - 1][a + 1];
-            dp[i][a] %= mod;
-        }
-        else {
-            for (int j = 1; j <= m; j++) {
-                dp[i][j] = dp[i - 1][j];
-                if (j != 1) dp[i][j] += dp[i - 1][j - 1];
-                if (j != m) dp[i][j] += dp[i - 1][j + 1];
-                dp[i][j] %= mod;
+    int m, a;
+    cin >> m >> m;
+    cin >> a;
+    vector<ll> curr(m + 1, 0), prev(m + 1, 0);
+    if (a != 0) curr[a] = 1;
+    else fill(curr.begin() + 1, curr.end(), 1);
+    while (cin >> a) {
+        swap(curr, prev);
+        curr.assign(m + 1, 0);
+        if (a != 0) {
+            for (int k : {a - 1, a, a + 1}) {
+                if (k >= 1 && k <= m) curr[a] += prev[k];
             }
+            curr[a] %= mod;
+            continue;
+        }
+        for (int j = 1; j <= m; j++) {
+            for (int k : {j - 1, j, j + 1}) {
+                if (k >= 1 && k <= m) curr[j] += prev[k];
+            }
+            curr[j] %= mod;
         }
     }
     ll res = 0;
-    for (int j = 0; j <= m; j++) {
-        res += dp[n - 1][j];
+    for (int j = 1; j <= m; j++) {
+        res += curr[j];
         res %= mod;
     }
     cout << res;
