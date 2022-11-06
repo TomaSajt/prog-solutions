@@ -35,7 +35,7 @@ bool find_disp(Node* node, const string& str, int ind) {
         return;
     }
     if (ind == str.size()) {
-        for (int i = 0; i < 26; i++) disp_all(node->next[i]);
+        for (auto next : node->next) disp_all(next);
         return;
     }
     return find_disp(node->next[chtoi(str[ind])], str, ind + 1);
