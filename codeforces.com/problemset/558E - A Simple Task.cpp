@@ -2,93 +2,87 @@
 #define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
 
-int tree[400005][26], lazy[400005][26];
-
-void build(const string& str, int x, int lx, int rx) {
-    if (lx + 1 == rx) {
-        tree[x][str[lx] - 'a'] = 1;
-        for (int j = 0; j < 26; j++) lazy[x][j] = -1;
-        return;
+class segtree {
+    char ch;
+    int size;
+    vector<int> vec;
+    vector<int> lazy;
+    void build(const string& str, int x, int lx, int rx) {
+        if (lx + 1 == rx) {
+            if (str[lx] == ch) vec[x] = 1;
+            return;
+        }
+        int m = (lx + rx) / 2;
+        build(str, x * 2 + 1, lx, m);
+        build(str, x * 2 + 2, m, rx);
+        vec[x] = vec[x * 2 + 1] + vec[x * 2 + 2];
     }
-    int m = (lx + rx) / 2;
-    build(str, x * 2 + 1, lx, m);
-    build(str, x * 2 + 2, m, rx);
-    for (int j = 0; j < 26; j++) {
-        lazy[x][j] = -1;
-        tree[x][j] = tree[x * 2 + 1][j] + tree[x * 2 + 2][j];
+    void push(int x, int lx, int rx) {
+        vec[x] = lazy[x] * (rx - lx);
+        if (lx + 1 != rx) {
+            lazy[x * 2 + 1] = lazy[x];
+            lazy[x * 2 + 2] = lazy[x];
+        }
+        lazy[x] = -1;
     }
-}
-
-void push(int x, int lx, int rx, int j) {
-    tree[x][j] = lazy[x][j] * (rx - lx);
-    if (lx + 1 != rx) {
-        lazy[x * 2 + 1][j] = lazy[x][j];
-        lazy[x * 2 + 2][j] = lazy[x][j];
+    void set_range(int l, int r, int val, int x, int lx, int rx) {
+        if (lazy[x] != -1) push(x, lx, rx);
+        if (l <= lx && rx <= r) {
+            lazy[x] = val;
+            push(x, lx, rx); // also push because we need vec[x] to be calculated to be used after returning
+            return;
+        }
+        if (r <= lx || rx <= l) return;
+        int m = (lx + rx) / 2;
+        set_range(l, r, val, x * 2 + 1, lx, m);
+        set_range(l, r, val, x * 2 + 2, m, rx);
+        vec[x] = vec[x * 2 + 1] + vec[x * 2 + 2];
     }
-    lazy[x][j] = -1;
-}
-
-void set_range(int l, int r, int val, int x, int lx, int rx, int j) {
-    if (lazy[x][j] != -1) push(x, lx, rx, j);
-    if (l <= lx && rx <= r) {
-        lazy[x][j] = val;
-        push(x, lx, rx, j);
-        return;
+    int get_range(int l, int r, int x, int lx, int rx) {
+        if (lazy[x] != -1) push(x, lx, rx);
+        if (l <= lx && rx <= r) return vec[x];
+        if (r <= lx || rx <= l) return 0;
+        int m = (lx + rx) / 2;
+        return get_range(l, r, x * 2 + 1, lx, m) + get_range(l, r, x * 2 + 2, m, rx);
     }
-    if (r <= lx || rx <= l) return;
-    int m = (lx + rx) / 2;
-    set_range(l, r, val, x * 2 + 1, lx, m, j);
-    set_range(l, r, val, x * 2 + 2, m, rx, j);
-    tree[x][j] = tree[x * 2 + 1][j] + tree[x * 2 + 2][j];
-}
-
-int get_range(int l, int r, int x, int lx, int rx, int j) {
-    if (lazy[x][j] != -1) push(x, lx, rx, j);
-    if (l <= lx && rx <= r)
-        return tree[x][j];
-    if (r <= lx || rx <= l) return 0;
-    int m = (lx + rx) / 2;
-    return get_range(l, r, x * 2 + 1, lx, m, j) + get_range(l, r, x * 2 + 2, m, rx, j);
-}
-
-void make_str(string& str, int x, int lx, int rx, int j) {
-    if (lazy[x][j] != -1) push(x, lx, rx, j);
-    if (tree[x][j] == 0) return;
-    if (lx + 1 == rx) {
-        str[lx] = j + 'a';
-        return;
+    void make_str(string& str, int x, int lx, int rx) {
+        if (lazy[x] != -1) push(x, lx, rx);
+        if (vec[x] == 0) return; // no 1 in interval
+        if (lx + 1 == rx) {
+            str[lx] = ch;
+            return;
+        }
+        int m = (lx + rx) / 2;
+        make_str(str, x * 2 + 1, lx, m);
+        make_str(str, x * 2 + 2, m, rx);
     }
-    int m = (lx + rx) / 2;
-    make_str(str, x * 2 + 1, lx, m, j);
-    make_str(str, x * 2 + 2, m, rx, j);
-}
+public:
+    segtree(const string& str, char ch) : ch(ch), size(str.size()), vec(str.size() * 4), lazy(str.size() * 4, -1) { build(str, 0, 0, size); }
+    void set_range(int l, int r, int val) { set_range(l, r, val, 0, 0, size); }
+    int get_range(int l, int r) { return get_range(l, r, 0, 0, size); }
+    void make_str(string& str) { make_str(str, 0, 0, size); }
+};
 
 int main() {
     int n, q;
     string str;
+    vector<segtree> stv;
     cin >> n >> q >> str;
-    build(str, 0, 0, n);
+    for (int i = 0; i < 26; i++) stv.emplace_back(str, 'a' + i);
     while (q--) {
-        int l, r, up;
-        cin >> l >> r >> up;
-        l--;
-        vector<int> cnt(26);
-        for (int j = 0; j < 26; j++) cnt[j] = get_range(l, r, 0, 0, n, j);
-        int curr = up ? l : r;
-        for (int j = 0; j < 26; j++) {
-            if (!cnt[j]) continue;
-            set_range(l, r, 0, 0, 0, n, j);
-            if (up) {
-                set_range(curr, curr + cnt[j], 1, 0, 0, n, j);
-                curr += cnt[j];
-            }
-            else {
-                set_range(curr - cnt[j], curr, 1, 0, 0, n, j);
-                curr -= cnt[j];
-            }
+        int l, r, inc;
+        cin >> l >> r >> inc; l--;
+        int curr = l;
+        for (int i = 0; i < 26; i++) {
+            int j = inc ? i : 25 - i;
+            int cnt = stv[j].get_range(l, r);
+            if (!cnt) continue;
+            stv[j].set_range(l, r, 0);
+            stv[j].set_range(curr, curr + cnt, 1);
+            curr += cnt;
         }
     }
-    for (int i = 0; i < 26; i++) make_str(str, 0, 0, n, i);
+    for (int i = 0; i < 26; i++) stv[i].make_str(str);
     cout << str;
     return 0;
 }
