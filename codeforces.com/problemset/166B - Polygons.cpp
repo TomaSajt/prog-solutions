@@ -4,6 +4,9 @@ using namespace std;
 typedef long long ll;
 struct point {
     ll x, y;
+    bool operator==(const point& other) {
+        return x == other.x && y == other.y;
+    }
 };
 
 inline bool betw(ll a, ll b, ll n) {
@@ -46,9 +49,10 @@ int main() {
             else l = c;
         }
         // check triangle and (0,l) side
-        if (in_tri(v[0], v[l], v[l + 1], p) || on_seg(v[0], v[l], p)) continue;
-        cout << "NO";
-        return 0;
+        if (p == v[l] || (!in_tri(v[0], v[l], v[l + 1], p) && !on_seg(v[0], v[l], p))) {
+            cout << "NO";
+            return 0;
+        }
     }
     cout << "YES";
 }
