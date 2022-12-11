@@ -7,27 +7,14 @@ int main() {
     int n; cin >> n;
     char c;
     int res = 1;
-    set<char> dirs;
     map<char, char> ops;
-    ops['U'] = 'D';
-    ops['D'] = 'U';
-    ops['L'] = 'R';
-    ops['R'] = 'L';
-    cin >> c;
-    dirs.insert(c);
+    string a = "UDLR", b = "DURL";
+    set<char> dirs;
+    for (int i = 0; i < 4; i++) ops[a[i]] = b[i];
     while (cin >> c) {
-        if (dirs.size() == 1) {
-            char other = *dirs.begin();
-            if (ops[other] == c) {
-                res++;
-                dirs.clear();
-            }
-        }
-        else if (dirs.size() == 2) {
-            if (!dirs.count(c)) {
-                res++;
-                dirs.clear();
-            }
+        if ((dirs.size() == 1 && ops[c] == *dirs.begin()) || (dirs.size() == 2 && !dirs.count(c))) {
+            res++;
+            dirs.clear();
         }
         dirs.insert(c);
     }
