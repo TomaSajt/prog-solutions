@@ -5,32 +5,31 @@
 using namespace std;
 
 struct Node {
-    int l, r;
-    Node* lc{};
-    Node* rc{};
+    int lx, rx;
+    Node* lc{}, * rc{};
     int val{ INT_MAX };
-    Node(int l, int r): l{ l }, r{ r } {}
+    Node(int lx, int rx): lx{ lx }, rx{ rx } {}
     void extend() {
-        int m = (l + r) / 2;
-        lc = lc ? lc : new Node(l, m);
-        rc = rc ? rc : new Node(m, r);
+        int m = (lx + rx) / 2;
+        lc = lc ? lc : new Node{ lx, m };
+        rc = rc ? rc : new Node{ m, rx };
     }
     void set(int i, int v) {
-        if (l + 1 == r) {
+        if (lx + 1 == rx) {
             val = v;
             return;
         }
         extend();
-        int m = (l + r) / 2;
+        int m = (lx + rx) / 2;
         if (i < m) lc->set(i, v);
         else rc->set(i, v);
         val = min(lc->val, rc->val);
     }
-    int get(int ql, int qr) {
-        if (r <= ql || qr <= l) return INT_MAX;
-        if (ql <= l && r <= qr) return val;
+    int get(int l, int r) {
+        if (rx <= l || r <= lx) return INT_MAX;
+        if (l <= lx && rx <= r) return val;
         extend();
-        return min(lc->get(ql, qr), rc->get(ql, qr));
+        return min(lc->get(l, r), rc->get(l, r));
     }
 };
 
@@ -38,7 +37,7 @@ int main() {
     speed;
     int n, m;
     cin >> n >> m;
-    Node root(0, n);
+    Node root{ 0, n };
     for (int i = 0; i < n; i++) {
         int a; cin >> a;
         root.set(i, a);
