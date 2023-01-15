@@ -1,41 +1,48 @@
 #include <bits/stdc++.h>
-#define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
 
+vector<set<int>> graf;
+vector<int> kor;
+
+void keres(int akt) {
+    vector<int> indit;
+    while (!graf[akt].empty()) {
+        int x = *graf[akt].begin();
+        graf[akt].erase(x);
+        graf[x].erase(akt);
+        keres(x);
+    }
+    kor.push_back(akt);
+}
+
 int main() {
-    speed;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n, m;
     cin >> n >> m;
-    vector<set<int>> g(n + 1);
+    graf.assign(n + 1, {});
+    int a, b;
     for (int i = 0; i < m; i++) {
-        int a, b;
         cin >> a >> b;
-        g[a].insert(b);
-        g[b].insert(a);
+        graf[a].insert(b);
+        graf[b].insert(a);
     }
     for (int i = 1; i <= n; i++) {
-        if (g[i].size() % 2 == 1) {
+        if (graf[i].size() % 2 != 0) {
             cout << "IMPOSSIBLE";
             return 0;
         }
     }
-    stack<int> s;
-    vector<int> path;
-    s.push(1);
-    while (!s.empty()) {
-        int cur = s.top(); s.pop();
-        while (!g[cur].empty()) {
-            int nei = *g[cur].begin();
-            g[cur].erase(nei);
-            g[nei].erase(cur);
-            s.push(cur);
-            cur = nei;
-        }
-        path.push_back(cur);
-    }
-    if (path.size() != m + 1) {
+    keres(1);
+
+    if ((int)kor.size() != m + 1) {
         cout << "IMPOSSIBLE";
         return 0;
     }
-    for (auto u : path) cout << u << ' ';
+    for (int x : kor) {
+        cout << x << " ";
+    }
+    cout << "\n";
+
 }
