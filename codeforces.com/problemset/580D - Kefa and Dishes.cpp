@@ -19,7 +19,7 @@ int main() {
         cin >> bonus[u - 1][v - 1];
     }
 
-    // dp[st][d] = max satisfaction achievable having eaten dishes maked by the bitset `st` and having last eaten dish `d`
+    // dp[st][d] = max satisfaction achievable having eaten dishes marked by the bitset `st` and having last eaten dish `d`
     vector<vector<ll>> dp(1 << n, vector<ll>(n, 0));
 
     for (int d = 0; d < n; d++) {
