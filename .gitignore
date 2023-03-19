@@ -1,5 +1,7 @@
 *.exe
+*.out
 input.txt
 output.txt
 error.txt
 .vscode
+.ccls-cache
