@@ -1,24 +1,44 @@
 #include <bits/stdc++.h>
-#define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
 
+template <typename T> class sparse_table {
+  vector<vector<T>> table;
+  function<T(T, T)> op;
+
+public:
+  sparse_table(const vector<T> &vec, function<T(T, T)> op)
+      : table(log2l(vec.size()) + 1, vector<T>(vec.size())), op(op) {
+    table[0] = vec;
+    int n = table[0].size();
+    int l = table.size();
+    for (int i = 1; i < l; i++) {
+      for (int j = 0; j + (1 << i) <= n; j++) {
+        table[i][j] = op(table[i - 1][j], table[i - 1][j + (1 << (i - 1))]);
+      }
+    }
+  }
+
+  int get_o1(int l, int r) {
+    int i = log2l(r - l);
+    return op(table[i][l], table[i][r - (1 << i)]);
+  }
+};
+
 int main() {
-    speed;
-    int n, a, b;
-    cin >> n >> a;
-    int l = log2l(n) + 1;
-    vector<vector<int>> st(n, vector<int>(l, 0));
-    for (int i = 0; i < n; i++) cin >> st[i][0];
-    for (int j = 1; (1 << j) <= n; j++) {
-        for (int i = 0; i + (1 << j) - 1 < n; i++) {
-            st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
-        }
-    }
-    while (cin >> a >> b) {
-        a--, b--;
-        int r = b - a + 1;
-        int cl = log2l(r);
-        int lr = 1 << cl;
-        cout << min(st[a][cl], st[b - lr + 1][cl]) << '\n';
-    }
+  cin.tie(0);
+  cin.sync_with_stdio(0);
+  int n, q;
+  cin >> n >> q;
+  vector<int> vec(n);
+  for (auto &x : vec)
+    cin >> x;
+
+  sparse_table<int> st(vec, [](int a, int b) { return min(a, b); });
+
+  while (q--) {
+    int a, b;
+    cin >> a;
+    cin >> b;
+    cout << st.get_o1(a - 1, b) << '\n';
+  }
 }
