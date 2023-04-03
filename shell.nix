@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
-  pkgs.mkShell {
-    nativeBuildInputs = [ pkgs.gcc ];
+{ pkgs ? import <nixpkgs> { } }:
+pkgs.mkShell {
+  nativeBuildInputs = [ pkgs.gcc ];
 }
