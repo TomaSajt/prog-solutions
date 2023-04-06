@@ -2,34 +2,38 @@
 using namespace std;
 typedef long long ll;
 
-struct segtree {
-  int size;
-  vector<int> v;
-  segtree(int size) : size(size), v(size * 4, INT_MAX) {}
-  void set(int i, int val) { set(i, val, 0, 0, size); }
+struct seg_tree {
+  int val{INT_MAX};
+  seg_tree *lc{}, *rc{};
+  int lx, rx;
+  seg_tree(int lx, int rx) : lx{lx}, rx{rx} {}
 
-  void set(int i, int val, int x, int lx, int rx) {
-    if (lx + 1 == rx) {
-      v[x] = val;
-      return;
-    }
+  void ensure_children_exist() {
     int m = (lx + rx) / 2;
-    if (i < m)
-      set(i, val, 2 * x + 1, lx, m);
-    else
-      set(i, val, 2 * x + 2, m, rx);
-
-    v[x] = min(v[2 * x + 1], v[2 * x + 2]);
+    if (!lc)
+      lc = new seg_tree(lx, m);
+    if (!rc)
+      rc = new seg_tree(m, rx);
   }
-
-  int get(int l, int r) { return get(l, r, 0, 0, size); }
-  int get(int l, int r, int x, int lx, int rx) {
+  int get(int l, int r) {
     if (rx <= l || r <= lx)
       return INT_MAX;
     if (l <= lx && rx <= r)
-      return v[x];
-    int m = (lx + rx) / 2;
-    return min(get(l, r, 2 * x + 1, lx, m), get(l, r, 2 * x + 2, m, rx));
+      return val;
+    ensure_children_exist();
+    return min(lc->get(l, r), rc->get(l, r));
+  }
+  void set(int i, int v) {
+    if (lx + 1 == rx) {
+      val = v;
+      return;
+    }
+    ensure_children_exist();
+    if (i < lc->rx)
+      lc->set(i, v);
+    else
+      rc->set(i, v);
+    val = min(lc->val, rc->val);
   }
 };
 
@@ -37,32 +41,26 @@ int main() {
   cin.tie(0), cin.sync_with_stdio(0);
   int n;
   cin >> n;
-  segtree st(200001);
-
-  int bestDist = -1;
-  set<pair<int, int>> sols;
-
+  seg_tree st(-100000, 100001);
+  int bestI = -1, bestJ = 0;
   for (int i = 0; i < n; i++) {
     int vi;
     cin >> vi;
-    vi += 100000;
-    int j = st.get(vi + 1, 200001);
+    int j = st.get(vi + 1, 100001);
     if (st.get(vi, vi + 1) == INT_MAX)
       st.set(vi, i);
     if (j == INT_MAX)
       continue;
-    int dist = i - j + 1;
-    if (dist >= bestDist) {
-      if (dist != bestDist)
-        sols.clear();
-      bestDist = dist;
-      sols.insert({j, i});
+    int d = i - j;
+    int bestD = bestI - bestJ;
+    if (d > bestD || (d == bestD && j < bestJ)) {
+      bestI = i, bestJ = j;
     }
   }
-  if (sols.size() == 0) {
+  if (bestI == -1) {
     cout << "-1";
     return 0;
   }
-  cout << sols.begin()->first + 1 << ' ' << sols.begin()->second + 1;
+  cout << bestJ + 1 << ' ' << bestI + 1;
   return 0;
 }
