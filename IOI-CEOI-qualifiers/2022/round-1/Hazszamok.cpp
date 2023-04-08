@@ -1,112 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define speed    \
-    cout.tie(0); \
-    cin.tie(0);  \
-    ios::sync_with_stdio(0)
+typedef long long ll;
 
-int k;
+int base;
+map<pair<int, ll>, ll> mem;
 
-vector<int> budget;
-vector<int> digits;
-map<int, long long> mem;
-long long pn(int e)
-{
-    if (mem[e])
-        return mem[e];
-    long long h = pn(e / 2);
-    return mem[e] = (e % 2 == 0 ? h * h : h * h * k);
+// I have no idea how this works, just started messing around with formulas on
+// OEIS and got this working
+
+// calculates the number of `d` digits used from `1..n`
+ll num_of_digits_upto(int d, ll n) {
+  if (n <= 0)
+    return 0;
+  if (mem.count({d, n}))
+    return mem.at({d, n});
+  ll r = n % base;
+  ll q = n / base;
+  ll res = q + (r + 1) * num_of_digits_upto(d, q) +
+           (base - r - 1) * num_of_digits_upto(d, q - 1);
+  if (d != 0 && r >= d)
+    res++;
+  return mem[pair<int, ll>(d, n)] = res;
 }
 
-long long f(int d)
-{
-    return (d + 1) * pn(d);
-}
-long long g(int d)
-{
-    if (d == 0)
-        return 0;
-    return (k - 1) * f(d - 1) + g(d - 1);
-}
-
-int calcDig(int i)
-{
-    int a = f(i - 1);
-    for (int j = 1; j < k; j++)
-    {
-        for (int l = 0; l < k; l++)
-        {
-            budget[l] -= a;
-        }
-        bool o = false;
-        for (int l = 0; l < k; l++)
-        {
-            if (budget[l] < 0)
-            {
-                o = true;
-                break;
-            }
-        }
-        if (!o)
-            continue;
-        for (int l = 0; l < k; l++)
-        {
-            budget[l] += a;
-        }
-        return j - 1;
+int main() {
+  cin >> base;
+  vector<ll> budget(base);
+  for (auto &b : budget)
+    cin >> b;
+  auto is_enough = [&](ll n) {
+    for (int d = 0; d < base; d++) {
+      if (num_of_digits_upto(d, n) > budget[d])
+        return false;
     }
-    return k - 1;
-}
-int main()
-{
-    speed;
-    mem[0] = 1;
-    cin >> k;
-    budget.resize(k);
-    for (int &a : budget)
-        cin >> a;
-    int dig;
-    for (int i = 0;; i++)
-    {
-        for (int j = 0; j < k; j++)
-        {
-            int c = j == 0 ? g(i) : f(i);
-            if (budget[j] < c)
-            {
-                dig = i;
-                goto after;
-            }
-        }
-    }
-after:
-    digits.resize(dig + 1);
-    for (int i = dig; i >= 0; i--)
-    {
-        digits[i] = calcDig(i);
-    }
-    digits[0]--;
-    int res = 0;
-    for (int i = dig; i >= 0; i--)
-    {
-        res *= k;
-        res += digits[i];
-    }
-    cout << res << endl;
-}
+    return true;
+  };
 
-//   1
-//   2
-//   3
-//  10
-//  11
-//  12
-//  13
-//  20
-//  21
-//  22
-//  23
-//  30
-//  31
-//  32
-//  33
-// 100
+  ll curr = 0;
+  for (int i = 55; i >= 0; i--) {
+    ll next = curr + (1ll << i);
+    if (is_enough(next))
+      curr = next;
+  }
+  cout << curr;
+}
