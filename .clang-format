@@ -1,0 +1,23 @@
+BasedOnStyle: Google
+
+
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: true
+
+AllowShortBlocksOnASingleLine: true
+AllowShortLambdasOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+
+AlwaysBreakTemplateDeclarations: Yes
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  BeforeElse: true
+  BeforeCatch: true
+  SplitEmptyFunction: false
+
+
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+BreakStringLiterals: false
