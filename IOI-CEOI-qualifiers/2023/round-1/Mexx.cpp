@@ -6,9 +6,7 @@ int main() {
   int n;
   cin >> n;
   vector<int> a(n);
-  for (int &ai : a) {
-    cin >> ai;
-  }
+  for (int &ai : a) cin >> ai;
   vector<int> b(n, -1);
   vector<bool> used(n + 1);
 
@@ -23,21 +21,15 @@ int main() {
       used[b[i]] = true;
     }
   }
-  used[a[n - 1]] = true; // don't use last value
+  used[a[n - 1]] = true;  // don't use last value
   int val = 0;
   for (int i = 0; i < n; i++) {
-    if (b[i] != -1) {
-      continue;
-    }
-    while (used[val]) {
-      val++;
-    }
+    if (b[i] != -1) continue;
+    while (used[val]) val++;
     b[i] = val;
     used[val] = true;
   }
   cout << "IGEN\n";
-  for (int &bi : b) {
-    cout << bi << ' ';
-  }
+  for (int &bi : b) cout << bi << ' ';
   return 0;
 }

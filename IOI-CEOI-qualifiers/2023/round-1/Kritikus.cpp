@@ -16,9 +16,7 @@ void dfs(int u) {
     }
     dfs(v);
     l[u] = min(l[u], l[v]);
-    if (l[v] >= d[u]) {
-      res.insert(u);
-    }
+    if (l[v] >= d[u]) res.insert(u);
   }
 }
 
@@ -36,19 +34,13 @@ int main() {
     out_deg[u]++, in_deg[v]++;
   }
   for (int i = 1; i <= n; i++) {
-    if (in_deg[i] == 0) {
-      g[0].push_back(i), g[i].push_back(0);
-    }
-    if (out_deg[i] == 0) {
-      g[n + 1].push_back(i), g[i].push_back(n + 1);
-    }
+    if (in_deg[i] == 0) g[0].push_back(i), g[i].push_back(0);
+    if (out_deg[i] == 0) g[n + 1].push_back(i), g[i].push_back(n + 1);
   }
   dfs(0);
 
   res.erase(0), res.erase(n + 1);
   cout << res.size() << '\n';
-  for (auto &r : res) {
-    cout << r << ' ';
-  }
+  for (auto &r : res) cout << r << ' ';
   return 0;
 }
