@@ -1,6 +1,5 @@
 BasedOnStyle: Google
 
-
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: true
 
@@ -17,7 +16,7 @@ BraceWrapping:
   SplitEmptyFunction: false
 
 
-BreakBeforeTernaryOperators: true
+BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
