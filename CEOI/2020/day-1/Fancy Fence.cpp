@@ -1,3 +1,4 @@
+// https://oj.uz/problem/view/CEOI20_FANCYFENCE
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
