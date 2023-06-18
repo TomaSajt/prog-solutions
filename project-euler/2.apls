@@ -1,5 +1,3 @@
-#!/usr/bin/env -S dyalog -script
-
 fib←{
     ⍺←0 1
     ⍵≤⊃⌽⍺:¯1↓⍺

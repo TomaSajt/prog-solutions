@@ -1,0 +1,6 @@
+⎕PP←20
+⎕FR←1287
+
+input←∊⊃⎕NGET'8.input.txt'1
+
+⎕←⌈⌿13×⌿⍎¨input

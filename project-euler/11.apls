@@ -1,0 +1,5 @@
+input←↑⍎¨⊃⎕NGET'11.input.txt'1
+
+regions←¯1 ¯1↓1 1↓(⊂⍤⊢⌺(4 4))input
+
+⎕←⌈⌿×⌿¨⊃(,⍥,)/(4,/input)(4,⌿input)(1 1∘⍉∘⌽¨regions)(1 1∘⍉¨regions)
