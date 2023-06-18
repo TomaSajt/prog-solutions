@@ -1,0 +1,4 @@
+#!/usr/bin/env -S dyalog -script
+
+solve←(+/(0∊3∘|,5∘|)¨⊢⍤⌿⊢)(⍳-∘1)
+⎕←solve 1000

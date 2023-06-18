@@ -1,0 +1,10 @@
+#!/usr/bin/env -S dyalog -script
+
+fib←{
+    ⍺←0 1
+    ⍵≤⊃⌽⍺:¯1↓⍺
+    (⍺,+⌿¯2↑⍺)∇⍵
+}
+solve←(+⌿⊢⊢⍤⌿⍨0=2∘|)fib
+
+⎕←solve 4000000
