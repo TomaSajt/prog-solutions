@@ -3,11 +3,9 @@ BasedOnStyle: Google
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: true
 
-AllowShortBlocksOnASingleLine: true
-AllowShortLambdasOnASingleLine: true
-AllowShortLoopsOnASingleLine: true
-
 AlwaysBreakTemplateDeclarations: Yes
+
+ColumnLimit: 0
 
 BreakBeforeBraces: Custom
 BraceWrapping:
@@ -20,3 +18,4 @@ BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
+
