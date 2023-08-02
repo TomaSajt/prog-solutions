@@ -1,0 +1,1 @@
+puts File.read("./input/013.txt").split(/\n/).sum(&:to_i).to_s[0..9]

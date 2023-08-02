@@ -1,4 +1,4 @@
-input←↑⍎¨⊃⎕NGET'11.input.txt'1
+input←↑⍎¨⊃⎕NGET'input/011.txt'1
 
 regions←¯1 ¯1↓1 1↓(⊂⍤⊢⌺(4 4))input
 

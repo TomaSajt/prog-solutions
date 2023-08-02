@@ -1,0 +1,1 @@
+p (100..999).map{|a|(a+1..999).map{_1*a}.select{_1.to_s==_1.to_s.reverse}}.flatten.max

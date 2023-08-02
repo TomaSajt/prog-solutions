@@ -1,0 +1,1 @@
+p eval("[#{File.read("./input/022.txt")}]").sort.map.with_index{_1.chars.sum{|c|c.ord-'A'.ord+1}*(_2+1)}.sum
