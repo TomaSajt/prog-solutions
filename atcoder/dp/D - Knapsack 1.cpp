@@ -1,19 +1,36 @@
 #include <bits/stdc++.h>
-
-long long DP[100001];
 using namespace std;
+typedef long long ll;
+
 int main() {
-    int N, W;
-    cin >> N >> W;
-    vector<long long> w(N + 1), v(N + 1);
-    for (int i = 1; i <= N; i++) cin >> w[i] >> v[i];
-    for (int j = 1; j <= N; j++) {
-        for (int i = W; i >= 0; i--) {
-            if (i >= w[j]) {
-                DP[i] = max(DP[i], DP[i - w[j]] + v[j]);
-            }
-        }
+  int n, w_max;
+  cin >> n >> w_max;
+
+  vector<ll> w(n + 1), v(n + 1);
+  for (int i = 1; i <= n; i++) cin >> w[i] >> v[i];
+
+  vector<vector<ll>> dp(n + 1, vector<ll>(w_max + 1, 0));
+  for (int i = 1; i <= n; i++) {
+    for (int j = 0; j <= w_max; j++) {
+      dp[i][j] = dp[i - 1][j];
+      if (j - w[i] >= 0) {
+        dp[i][j] = max(dp[i][j], dp[i - 1][j - w[i]] + v[i]);
+      }
     }
-    cout << DP[W] << endl;
-    return 0;
+  }
+
+  cout << dp[n][w_max] << endl;
+
+  /*
+  vector<ll> dp(w_max + 1, 0);
+  for (int i = 1; i <= n; i++) {
+    for (int j = w_max; j >= 0; j--) {
+      if (j - w[i] >= 0) {
+        dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+      }
+    }
+  }
+
+  cout << dp[w_max] << endl;
+  */
 }
