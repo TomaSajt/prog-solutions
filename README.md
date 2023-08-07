@@ -1,4 +1,5 @@
-This repository is where I store most of my solutions for programming contest problems
-I try to organize them by website or by some other factor
+### My solutions for programming contest problems
 
-there are also some powershell scripts to help automate calling gcc
+Most of the solutions I write for competitive programming will be commited into this repository.
+
+It's mostly C++, although there are other languages too.
