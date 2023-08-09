@@ -1,20 +1,25 @@
 #include <bits/stdc++.h>
-#define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
 
 int main() {
-    speed;
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    for (auto& x : v) cin >> x;
-    set<int> s, s2;
-    s.insert(0);
-    s2 = s;
-    for (int i = 0; i < n; i++, s = s2) {
-        for (int a : s) s2.insert(a + v[i]);
+  int n;
+  cin >> n;
+
+  vector<int> coins(n);
+  for (int& c : coins) cin >> c;
+
+  vector<bool> dp(100001);
+  dp[0] = 1;
+  for (int c : coins) {
+    for (int s = 100000; s >= 0; s--) {
+      if (s - c >= 0 && dp[s - c]) dp[s] = 1;
     }
-    s.erase(0);
-    cout << s.size() << '\n';
-    for (int a : s) cout << a << ' ';
+  }
+
+  cout << count(dp.begin() + 1, dp.end(), 1) << '\n';
+  for (int i = 1; i <= 100000; i++) {
+    if (dp[i]) {
+      cout << i << ' ';
+    }
+  }
 }
