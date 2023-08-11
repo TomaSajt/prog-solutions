@@ -1,16 +1,22 @@
 #include <bits/stdc++.h>
-#define speed ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 using namespace std;
+
 int main() {
-    speed;
-    int n;
-    cin >> n;
-    vector<int> pies(n), f(n + 1), s(n + 1);
-    for (int& p : pies) cin >> p;
-    for (int i = n - 1; i >= 0; i--) {
-        f[i] = s[i + 1] + pies[i];
-        s[i] = f[i + 1];
-        if (f[i] < s[i]) swap(f[i], s[i]);
-    }
-    cout << s[0] << ' ' << f[0];
+  cin.tie(0), ios::sync_with_stdio(0);
+
+  int n;
+  cin >> n;
+
+  vector<int> pies(n);
+  for (int& p : pies) cin >> p;
+
+  vector<int> f(n + 1), s(n + 1);
+  for (int i = n - 1; i >= 0; i--) {
+    int a = s[i + 1] + pies[i];
+    int b = f[i + 1];
+    f[i] = max(a, b);
+    s[i] = min(a, b);
+  }
+
+  cout << s[0] << ' ' << f[0];
 }
