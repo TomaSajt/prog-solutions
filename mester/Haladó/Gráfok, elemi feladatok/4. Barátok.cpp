@@ -1,46 +1,40 @@
-// 100/100
-
 #include <bits/stdc++.h>
-#define pb push_back
-#define speed ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
-#pragma GCC optimize ("Ofast")
 using namespace std;
-typedef long long ll;
 
 vector<vector<int>> g;
-vector<vector<int>> groups;
+vector<vector<int>> comps;
 vector<bool> vis;
 
-void dfs(int vertex) {
-    vis[vertex] = 1;
-    groups.back().pb(vertex);
-    for (int nei : g[vertex]) {
-        if (vis[nei]) continue;
-        dfs(nei);
-    }
+void dfs(int u) {
+  vis[u] = 1;
+  comps.back().push_back(u);
+  for (int v : g[u]) {
+    if (!vis[v]) dfs(v);
+  }
 }
 
 int main() {
-    speed;
-    int n, m;
-    cin >> n >> m;
-    g.resize(n + 1);
-    while (m--) {
-        int u, v;
-        cin >> u >> v;
-        g[u].pb(v);
-        g[v].pb(u);
-    }
-    vis.resize(n + 1, 0);
-    for (int i = 1; i <= n; i++) {
-        if (vis[i]) continue;
-        groups.pb({});
-        dfs(i);
-    }
-    cout << groups.size() << '\n';
-    for (auto& group : groups) {
-        sort(group.begin(), group.end());
-        for (int i : group) cout << i << " ";
-        cout << '\n';
-    }
+  int n, m;
+  cin >> n >> m;
+
+  g.resize(n + 1);
+  while (m--) {
+    int u, v;
+    cin >> u >> v;
+    g[u].push_back(v), g[v].push_back(u);
+  }
+
+  vis.resize(n + 1);
+  for (int u = 1; u <= n; u++) {
+    if (vis[u]) continue;
+    comps.push_back({});
+    dfs(u);
+  }
+
+  cout << comps.size() << '\n';
+  for (auto& comp : comps) {
+    sort(comp.begin(), comp.end());
+    for (int u : comp) cout << u << ' ';
+    cout << '\n';
+  }
 }
