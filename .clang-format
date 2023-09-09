@@ -1,7 +1,7 @@
-BasedOnStyle: Google
-
 AlignConsecutiveMacros: true
 AlignEscapedNewlines: true
+
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 
 AlwaysBreakTemplateDeclarations: Yes
 
@@ -19,3 +19,4 @@ BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
 
+ConstructorInitializerAllOnOneLineOrOnePerLine: true # Doesn't want to work correctly
