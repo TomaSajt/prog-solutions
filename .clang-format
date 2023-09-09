@@ -2,6 +2,7 @@ AlignConsecutiveMacros: true
 AlignEscapedNewlines: true
 
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
 
 AlwaysBreakTemplateDeclarations: Yes
 
@@ -20,3 +21,5 @@ BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
 
 ConstructorInitializerAllOnOneLineOrOnePerLine: true # Doesn't want to work correctly
+
+ReferenceAlignment: Left # clang version >= 13
