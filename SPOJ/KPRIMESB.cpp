@@ -1,39 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int maxN = 1e6;
-vector<int> primes_to_n;
 
-int solve(int n, int k, const vector<int>& kpr) {
-    if (n < 2) return 0;
-    int div = 0;
-    for (int i = 1; i < (1 << k); i++) {
-        int res = 1;
-        for (int j = 0; j < k; j++) {
-            if (i >> j & 1) res *= kpr[j];
-            if (res > n) break;
-        }
-        div += (__builtin_popcount(i) % 2 == 0 ? -1 : 1) * (n / res);
+// uses inclusion-exclusion principle
+int divisible_composites_upto(int n, const vector<int>& primes) {
+  int k = primes.size();
+  int divisible = 0;
+  for (int i = 1; i < (1 << k); i++) {
+    int prod = 1;
+    for (int j = 0; j < k; j++) {
+      if (i >> j & 1) prod *= primes[j];
+      if (prod > n) break; // avoid overflow and unnecessary computations
     }
-    return n - div - primes_to_n[n] + k - 1;
+    int sign = __builtin_popcount(i) % 2 == 0 ? -1 : 1;
+    divisible += (n / prod) * sign;
+  }
+  int included_primes = count_if(primes.begin(), primes.end(), [&](int p) { return p <= n; });
+  return divisible - included_primes;
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
-    vector<int> prime(maxN + 1, 1);
-    prime[0] = prime[1] = 0;
-    primes_to_n.resize(maxN + 1);
-    for (int i = 2; i <= maxN;i++) {
-        if (!prime[i]) continue;
-        for (int j = 2; j * i <= maxN;j++) {
-            prime[j * i] = 0;
-        }
-    }
-    partial_sum(prime.begin(), prime.end(), primes_to_n.begin());
-    int n, k, t = 1;
-    cin >> n;
-    while (cin >> n >> k) {
-        vector<int> kpr(k);
-        for (auto& i : kpr) cin >> i;
-        cout << "Case " << t++ << ": " << solve(n, k, kpr) << '\n';
-    }
+  ios::sync_with_stdio(0), cin.tie(0);
+
+  vector<int> is_composite(maxN + 1);
+  for (int i = 2; i <= maxN; i++) {
+    if (is_composite[i]) continue;
+    for (int j = 2 * i; j <= maxN; j += i) is_composite[j] = 1;
+  }
+
+  vector<int> composites_upto(maxN + 1);
+  partial_sum(is_composite.begin(), is_composite.end(), composites_upto.begin());
+
+  int q;
+  cin >> q;
+  for (int t = 1; t <= q; t++) {
+    int n, k;
+    cin >> n >> k;
+    vector<int> primes(k);
+    for (int& p : primes) cin >> p;
+    cout << "Case " << t << ": " << composites_upto[n] - divisible_composites_upto(n, primes) << '\n';
+  }
 }
