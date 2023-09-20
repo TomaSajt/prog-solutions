@@ -1,41 +1,51 @@
 #include <bits/stdc++.h>
-#define speed ios::sync_with_stdio(0);cin.tie(0)
 using namespace std;
 vector<int> par, dep, cnt;
 
 int find(int u) {
-    return u == par[u] ? u : par[u] = find(par[u]);
+  return u == par[u] ? u : par[u] = find(par[u]);
 }
 
 bool merge(int u, int v) {
-    u = find(u), v = find(v);
-    if (u == v) return 0;
-    if (dep[u] < dep[v]) swap(u, v);
-    if (dep[u] == dep[v]) dep[u]++;
-    par[v] = u;
-    cnt[u] += cnt[v];
-    return 1;
+  u = find(u), v = find(v);
+  if (u == v) return 0;
+
+  if (dep[u] < dep[v]) swap(u, v);
+  if (dep[u] == dep[v]) dep[u]++;
+
+  par[v] = u;
+  cnt[u] += cnt[v];
+  return 1;
 }
 
 int main() {
-    speed;
-    int n, m, k;
-    cin >> n >> m >> k;
-    vector<int> x(k);
-    vector<pair<int, pair<int, int>>> edges(m);
-    for (auto& a : x) cin >> a;
-    for (auto& [w, e] : edges) cin >> e.first >> e.second >> w;
-    par.resize(n + 1);
-    dep.resize(n + 1, 1);
-    cnt.resize(n + 1, 0);
-    sort(edges.begin(), edges.end());
-    iota(par.begin(), par.end(), 0);
-    for (auto& a : x) cnt[a] = 1;
-    for (auto& [w, e] : edges) {
-        auto& [u, v] = e;
-        if (merge(u, v) && cnt[find(u)] == k) {
-            while (k--) cout << w << ' ';
-            return 0;
-        }
+  ios::sync_with_stdio(0), cin.tie(0);
+
+  int n, m, k;
+  cin >> n >> m >> k;
+
+  vector<int> x(k);
+  for (int& xi : x) cin >> xi;
+
+  vector<array<int, 3>> edges(m);
+  for (auto& [w, u, v] : edges) cin >> u >> v >> w;
+
+  dep.resize(n + 1, 1);
+
+  par.resize(n + 1);
+  iota(par.begin(), par.end(), 0);
+
+  cnt.resize(n + 1, 0);
+  for (int& xi : x) cnt[xi] = 1;
+
+  int sol = -1;
+  sort(edges.begin(), edges.end());
+  for (auto& [w, u, v] : edges) {
+    if (merge(u, v) && cnt[find(u)] == k) {
+      sol = w;
+      break;
     }
+  }
+
+  while (k--) cout << sol << ' ';
 }
