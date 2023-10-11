@@ -1,31 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
+using ll = long long;
 
-signed main() {
-  ios::sync_with_stdio(false), cin.tie(0);
+int main() {
+  ios::sync_with_stdio(0), cin.tie(0);
 
   int n;
   cin >> n;
 
-  vector<int> h(n + 2);
+  vector<ll> h(n + 2);
   for (int i = 1; i <= n; i++) cin >> h[i];
 
-  int res = 0;
-  stack<int> s;
+  ll res = 0;
+  stack<pair<int, ll>> s;
+  s.push({0, -1});
+
   for (int i = 1; i <= n + 1; i++) {
-    int kitor = i;
-    while (!s.empty() && h[s.top()] > h[i]) {
-      res = max(res, h[s.top()] * (i - s.top()));
-      kitor = s.top();
+    int earliest_taller_i = i;
+    while (s.top().second >= h[i]) {
+      res = max(res, s.top().second * (i - s.top().first));
+      earliest_taller_i = s.top().first;
       s.pop();
     }
-    if (s.empty() || h[s.top()] != h[i]) {
-      s.push(kitor);
-      h[kitor] = h[i];
-    }
+    s.push({earliest_taller_i, h[i]});
   }
-
   cout << res;
 }
 
