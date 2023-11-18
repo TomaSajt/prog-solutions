@@ -1,0 +1,2 @@
+⊜∘ ≠@\n. &fras "input.txt"
+/+/≠
