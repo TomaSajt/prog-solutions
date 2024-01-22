@@ -1,48 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<set<int>> graf;
-vector<int> kor;
+vector<set<int>> g;
+vector<int> path;
 
-void keres(int akt) {
-    vector<int> indit;
-    while (!graf[akt].empty()) {
-        int x = *graf[akt].begin();
-        graf[akt].erase(x);
-        graf[x].erase(akt);
-        keres(x);
-    }
-    kor.push_back(akt);
+void traverse(int curr) {
+  while (!g[curr].empty()) {
+    int next = *g[curr].begin();
+    g[curr].erase(next);
+    g[next].erase(curr);
+    traverse(next);
+  }
+  path.push_back(curr);
 }
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+  ios::sync_with_stdio(0), cin.tie(0);
 
-    int n, m;
-    cin >> n >> m;
-    graf.assign(n + 1, {});
+  int n, m;
+  cin >> n >> m;
+  g.resize(n + 1);
+
+  for (int i = 0; i < m; i++) {
     int a, b;
-    for (int i = 0; i < m; i++) {
-        cin >> a >> b;
-        graf[a].insert(b);
-        graf[b].insert(a);
-    }
-    for (int i = 1; i <= n; i++) {
-        if (graf[i].size() % 2 != 0) {
-            cout << "IMPOSSIBLE";
-            return 0;
-        }
-    }
-    keres(1);
+    cin >> a >> b;
+    g[a].insert(b);
+    g[b].insert(a);
+  }
 
-    if ((int)kor.size() != m + 1) {
-        cout << "IMPOSSIBLE";
-        return 0;
+  for (int i = 1; i <= n; i++) {
+    if (g[i].size() % 2 != 0) {
+      cout << "IMPOSSIBLE";
+      return 0;
     }
-    for (int x : kor) {
-        cout << x << " ";
-    }
-    cout << "\n";
+  }
 
+  traverse(1);
+
+  if (path.size() != m + 1) {
+    cout << "IMPOSSIBLE";
+    return 0;
+  }
+
+  for (int x : path) cout << x << ' ';
 }
