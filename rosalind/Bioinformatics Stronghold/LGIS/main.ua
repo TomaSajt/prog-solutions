@@ -1,4 +1,5 @@
 ~ "../utils.ua" ~ NumsToString
+
 UpperBound ← (
   ⊃(⊙∘|0|⧻)
   ⍢(
@@ -7,21 +8,25 @@ UpperBound ← (
   ◌◌◌
 )
 
-InsertInto ← (⋅⊂|⍜⊡⋅∘)⊃(>⊙⧻|⊙∘)⊃(UpperBound:|:)
-LIS ← ◌∧((⊙∘|.)⊃(≠∩⧻|⊙∘)InsertInto) ⊙[] ⊙[]
+Add ← (
+  ⍜∩⊟:
+  ⊃(UpperBound ⊙⋅∘|⊙⊙∘)
+  ⊃(⊙⊙⋅∘|⊙⋅⊙⋅∘|⍜⊡⋅∘⊙::(⊡-1|¯1)=0.⊙⋅⊙⋅∘)
+  ∩((⋅⊂|⍜⊡⋅∘)⊃(>⊙⧻|⊙∘))
+)
+
+MakeLISIndices ← (
+  ⊢⇌◌∧Add⟜(⊃(⇡|.[]|↯:∞)⧻)
+  ◌◌⍢(⊃(⊡|⊙⊂:)|≠¯1) ⊙⊙[]
+)
+
+LIS ← ⊏MakeLISIndices.
 
 &fras "input.txt"
 °□⊡1⊜□¬∊:"\n\r".
 
 ⊜⋕ ≠@\s.
-↙ 20
-.
+
 ⊃(¯LIS¯|LIS)
 
-⊙⊗
-
-# ∩(&p NumsToString)
-
-# &fras "a.txt"
-# ⊙◌°{⊙∘}⊜(□⊜⋕≠@\s.)¬∊:"\n\r".
-# ⊗
+∩(&pNumsToString)

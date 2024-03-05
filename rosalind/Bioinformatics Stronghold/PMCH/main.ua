@@ -2,7 +2,6 @@
 
 FASTA &fras "input.txt"
 °□⊡1⊢
-∩↧°[⊙⊙⊙∘]≡/+⊞="AUCG"
-
+°⊟≡/+⊞="AC"
 BigMult ∩(/(BigMult)≡¤+1⇡)
 &p BigToString
