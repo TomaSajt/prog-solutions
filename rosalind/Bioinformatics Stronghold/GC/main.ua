@@ -1,8 +1,9 @@
-FASTA ← &i "../utils.ua" "FASTA"
+Utils ~ "../utils.ua"
 
-FASTA &fras "input.txt"
+Utils~FASTA &fras "input.txt"
 
-⊃≡(⊢⇌)≡⊢
-∵(×100÷⊃⧻(/+∊∶"CG")⊔)
-,∶⊢⍖.
-∩(&p⊔⊡)
+:≡°⊟
+
+×100÷≡◇⊃(⧻|/+∊:"CG")
+⊢⍖.
+∩&p⊃(⊡|°□⊡⊙⋅∘)

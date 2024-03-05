@@ -1,4 +1,4 @@
-CodonToAmino ← &i "../utils.ua" "CodonToAmino"
+~ "../utils.ua" ~ CodonToAmino
 
 ▽ ≠@\n. &fras "input.txt"
 

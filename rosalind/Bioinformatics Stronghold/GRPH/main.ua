@@ -1,14 +1,5 @@
-FASTA ← &i "../utils.ua" "FASTA"
-FASTA &fras "input.txt"
+Utils ~ "../utils.ua"
 
-IsEdge ← ↧⊃(≍⊓(↙¯3)(↙3))(¬≍)∩⊔
+Utils~FASTA &fras "input.txt"
 
-⊃(≡'⊢⇌)(≡⊢)
-
-⊞IsEdge.
-
-⊏ ⊃(⊚♭)(/⊂⇡△) # 2d where
-⊏
-
-⊐/(⊂⊂∶@\n)≡(□⊐/(⊂⊂∶@\s))
-&p
+:≡°⊟
