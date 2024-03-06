@@ -1,5 +1,4 @@
-▽ ≠@\n. &fras "input.txt"
-
-⊏∶"TAGC" ⊗∶"ATCG" ⇌
-
+&fras "input.txt"
+▽ ¬∊:"\n\r".
+⊏:"TAGC" ⊗:"ATCG" ⇌
 &p

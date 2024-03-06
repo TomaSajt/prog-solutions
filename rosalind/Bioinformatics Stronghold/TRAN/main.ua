@@ -1,6 +1,6 @@
-~ "../utils.ua" ~ FASTA NumsToString
-FASTA &fras "input.txt"
-≡°□⊡1⍉
+~ "../utils.ua" ~ FASTANumsToString
+&fras "input.txt"
+≡°□⊙◌ FASTA
 ▽≡/≠.⍉
 ∊:"GA"
 ÷:⟜-⊃(/+|⧻)≡/=

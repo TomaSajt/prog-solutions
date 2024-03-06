@@ -1,3 +1,6 @@
-▽ ≠@\n. &fras "input.txt"
-⊂∶@.
-/(◿1000000×)/+⊞=♭ &i "../utils.ua" "CodonTable"
+~ "../utils.ua" ~ CodonTable
+
+&fras "input.txt"
+▽ ¬∊:"\n\r".
+⊂:@.
+/(◿1000000×)/+⊞=♭CodonTable

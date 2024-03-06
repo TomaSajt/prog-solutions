@@ -2,8 +2,9 @@
 
 NCR ← ∧(÷⊙×)⊙⊙1+1⟜-⇡
 
-FASTA &fras "input.txt"
-°□⊡1⊢
+&fras "input.txt"
+°□⊢⊙◌ FASTA
+
 °[⊙⊙⊙∘]≡/+⊞="AUCG"
 BigMult ∩(/BigMult ≡¤-⇡⊃↧↥)
 &p BigToString

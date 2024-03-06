@@ -1,4 +1,4 @@
-FASTA ← ⊜(⊟:□/◇⊂:°⊂⊜□≠@\n.)≠@>.
+FASTA← ⊜(□/◇⊂:°⊂⊜□≠@\n.)≠@>.
 
 CodonTable ← ↯4_4_4 "FFLLSSSSYY..CC.WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG"
 

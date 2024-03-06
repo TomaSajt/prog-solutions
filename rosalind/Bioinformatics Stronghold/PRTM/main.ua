@@ -1,5 +1,5 @@
-AminoToMass ← &i "../utils.ua" "AminoToMass"
+~ "../utils.ua" ~ AminoToMass
 
-▽ ≠@\n. &fras "input.txt"
-
+&fras "input.txt"
+▽ ¬∊:"\n\r".
 /+AminoToMass

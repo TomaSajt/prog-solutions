@@ -15,5 +15,5 @@ Ways ← |1 memo(
 )
 
 FASTA &fras "input.txt"
-°□⊡1⊢
+°□⊢⊙◌
 Ways

@@ -1,5 +1,3 @@
-▽ ≠@\n. &fras "input.txt"
-
-?⋅@U∘=@T.
-
-&p
+&fras "input.txt"
+▽ ¬∊:"\n\r".
+&p(∘|@U)=@T.

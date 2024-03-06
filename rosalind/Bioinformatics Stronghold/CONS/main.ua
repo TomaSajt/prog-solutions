@@ -1,18 +1,9 @@
-Utils ~ "../utils.ua"
-# 
+~ "../utils.ua" ~ FASTANumsToString
+
 &fras "input.txt"
-≡(°□⊡1) Utils~FASTA
+≡°□⊙◌ FASTA
 
 ⊞="ACGT"
 ≡/+
 
-.
-&p⊏⊙"ACGT"≡(⊢⍖)⍉
-
-≡(□/◇⊂≡(□⊂@\s°⋕))
-
-≡(⇌⊟@:)"ACGT"
-
-≡⍚⊂
-
-∵&p
+⊃(≡(&p⊂⊓(⊟|NumsToString)) "ACGT" " "|&p⊏⊙"ACGT"≡(⊢⍖)⍉)

@@ -1,9 +1,7 @@
 ~ "../utils.ua" ~ CodonToAmino
 
-▽ ≠@\n. &fras "input.txt"
-
-↯¯1_3
-
-↘¯1≡(CodonToAmino)
-
+&fras "input.txt"
+▽ ¬∊:"\n\r".
+↯∞_3
+↘¯1≡CodonToAmino
 &p

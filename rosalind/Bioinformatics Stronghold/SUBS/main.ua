@@ -1,5 +1,4 @@
-∩⊔ ∶⍘⊟ ⊜□ ≠@\n. &fras "input.txt"
-
+~ "../utils.ua" ~ NumsToString
+:°{⊙∘} ⊜□ ≠@\n. &fras "input.txt"
 +1⊚⌕
-
-&p↘1↘¯1$"_"
+&p NumsToString

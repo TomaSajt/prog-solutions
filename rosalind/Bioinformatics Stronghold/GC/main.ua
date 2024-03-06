@@ -1,8 +1,6 @@
-Utils ~ "../utils.ua"
+~ "../utils.ua" ~ FASTA
 
-Utils~FASTA &fras "input.txt"
-
-:≡°⊟
+FASTA &fras "input.txt"
 
 ×100÷≡◇⊃(⧻|/+∊:"CG")
 ⊢⍖.

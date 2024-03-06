@@ -1,5 +1,5 @@
-~ "../utils.ua" ~ FASTA NumsToString
-FASTA &fras "input.txt"
-:°{⊙∘}⊡1⍉
+~ "../utils.ua" ~ FASTANumsToString
+FASTA&fras "input.txt"
+:°{⊙∘}⊙◌
 \+⇌◌∧(⊙⊂:⟜↘+1⊗⊙.)⊙⊙[]
 &p NumsToString

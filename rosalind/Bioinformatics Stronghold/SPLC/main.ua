@@ -1,6 +1,6 @@
-Utils ~ "../utils.ua"
+~ "../utils.ua" ~ CodonToAmino FASTA
 
-◌≡°⊟ Utils~FASTA &fras"input.txt"
+⊙◌ FASTA&fras"input.txt"
 °□°⊂
 
 ⊃(:¤|∘)
@@ -11,7 +11,7 @@ Utils ~ "../utils.ua"
 (∘|@U)=@T.
 ↯∞_3
 
-Utils~CodonToAmino
+CodonToAmino
 
 ↙⊃(⊗@.|∘)
 &p

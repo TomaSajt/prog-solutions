@@ -1,14 +1,12 @@
-Utils ~ "../utils.ua"
+~ "../utils.ua" ~ FASTANumsToString
 
 &fras "input.txt"
-Utils~FASTA
-°□⊡1⊢
+FASTA
+°□⊢⊙◌
 
 IsRevPal ← (≍⊏:"TAGC"⊗:"ATCG"⇌°⊟↯2_∞|0)◿2⧻.
 ⇡⧻.
 +4⇡9
 ☇1⊞⊟
 ▽⊃(≡((IsRevPal↙|0)⊃(<⊙⧻|⊙∘)⊙↘°⊟) ⊙¤|∘)
-≡(+1_0⇌)
-
-≡(&p ↘¯1↘1$"_")
+≡(&p NumsToString+1_0⇌)
