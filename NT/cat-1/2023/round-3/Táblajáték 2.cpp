@@ -1,5 +1,3 @@
-// NOT AC FOR THE LAST TEST
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -38,23 +36,18 @@ int main() {
   while (k--) {
     int op;
     cin >> op;
-    if (op == 0)
-      mult3(), row++;
-    else if (op == 1)
-      mult3(), inc(), row++;
-    else if (op == 2)
-      mult3(), inc(), inc(), row++;
-    else if (op == 3)
-      div3(), row--;
-    else if (op == 4)
-      dec();
-    else if (op == 5)
-      inc();
+    if (op == 0) mult3(), row++;
+    else if (op == 1) mult3(), inc(), row++;
+    else if (op == 2) mult3(), inc(), inc(), row++;
+    else if (op == 3) div3(), row--;
+    else if (op == 4) dec();
+    else if (op == 5) inc();
   }
 
   cout << row << '\n';
 
   auto it = find_if(d.rbegin(), d.rend(), [](int a) { return a != 0; });
+  if (it == d.rend()) it--;
   while (it != d.rend()) {
     cout << *it;
     it++;
