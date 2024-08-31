@@ -7,23 +7,25 @@ vector<int> d, l;
 
 int t = 1;
 
-vector<array<int, 2>> edges;
+set<int> nodes;
 
-void dfs(int u, int p) {
+void dfs(int u) {
   d[u] = l[u] = t++;
+  int c = 0;
   for (int v : g[u]) {
-    if (v == p) continue;
     if (d[v]) {
       l[u] = min(l[u], d[v]);
     }
     else {
-      dfs(v, u);
+      dfs(v);
       l[u] = min(l[u], l[v]);
-      if (d[u] < l[v]) {
-        edges.push_back({u, v});
+      if (u == 1) c++;
+      if (u != 1 && d[u] <= l[v]) {
+        nodes.insert(u);
       }
     }
   }
+  if (c >= 2) nodes.insert(1);
 }
 
 int main() {
@@ -39,8 +41,8 @@ int main() {
     g[v].push_back(u);
   }
 
-  dfs(1, 0);
+  dfs(1);
 
-  cout << edges.size() << '\n';
-  for (auto [a, b] : edges) cout << a << ' ' << b << endl;
+  cout << nodes.size() << '\n';
+  for (int a : nodes) cout << a << ' ';
 }
