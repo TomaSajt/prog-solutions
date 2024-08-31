@@ -57,7 +57,7 @@ public:
 
 class min_sliding_window {
     vector<int> values;
-    deque<int> deque;
+    deque<int> deq;
     int lo, hi;
 public:
     min_sliding_window(const vector<int>& values, int start = 0) : values(values), lo(start), hi(start) {}
@@ -66,17 +66,17 @@ public:
         if (lo <= hi) {
             // delete all indices with value more than the value of the next index to be appended
             // this will make the deque monotonically increasing from front to back
-            while (!deque.empty() && values[deque.back()] > values[hi]) deque.pop_back();
-            deque.push_back(hi);
+            while (!deq.empty() && values[deq.back()] > values[hi]) deq.pop_back();
+            deq.push_back(hi);
         }
         hi++;
     }
     void shrink() {
-        if (!deque.empty() && deque.front() <= lo) deque.pop_front();
+        if (!deq.empty() && deq.front() <= lo) deq.pop_front();
         lo++;
     }
     int curr_min() {
         if (lo >= hi) return INT_MAX;
-        return values[deque.front()];
+        return values[deq.front()];
     }
 };
