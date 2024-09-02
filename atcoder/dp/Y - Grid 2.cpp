@@ -2,55 +2,49 @@
 using namespace std;
 using ll = long long;
 const ll mod = 1e9 + 7;
+const ll L = 1e5;
 
-ll fact[200001];
+ll fact[L + 1], inv_fact[L + 1];
 
-ll mul(ll a, ll b) { return a * b % mod; }
-
-ll pow(ll a, ll b) {
+ll modpow(ll a, ll b) {
   if (b == 0) return 1;
-  if (b % 2 == 1) return mul(pow(a, b - 1), a);
-  return pow(mul(a, a), b / 2);
+  return modpow(a * a % mod, b / 2) * (b % 2 == 1 ? a : 1) % mod;
 }
 
-ll inv(ll a) { return pow(a, mod - 2); }
-
-ll choose(ll n, ll k) { return mul(fact[n], inv(mul(fact[n - k], fact[k]))); }
-
-ll sub(ll a, ll b) { return ((a - b) % mod + mod) % mod; }
+ll choose(ll n, ll k) {
+  return fact[n] * inv_fact[n - k] % mod * inv_fact[k] % mod;
+}
 
 int main() {
   fact[0] = 1;
-  for (ll i = 1; i <= 200000; i++) fact[i] = mul(fact[i - 1], i);
+  for (int i = 1; i <= L; i++) fact[i] = fact[i - 1] * i % mod;
+  inv_fact[L] = modpow(fact[L], mod - 2);
+  for (ll i = L; i >= 1; i--) inv_fact[i - 1] = inv_fact[i] * i % mod;
 
-  ios::sync_with_stdio(0);
-  cin.tie(0);
+  ll h, w, n;
+  cin >> h >> w >> n;
 
-  ll h, w, m;
-  cin >> h >> w >> m;
+  vector<array<ll, 2>> points(n);
+  for (auto& [r, c] : points) cin >> r >> c;
 
-  vector<array<ll, 2>> points(m);
-  for (auto& [y, x] : points) {
-    cin >> y >> x;
-    y--, x--;
-  }
-
+  // make sure a point has all the points from where it could be reached before it
   sort(points.begin(), points.end());
+  points.push_back({h, w});
 
-  points.push_back({h - 1, w - 1});
+  // number of ways to get from (1,1) to points[i] without passing through any points[j] j<i
+  vector<ll> dp(n + 1);
 
-  vector<ll> dp(m + 1);
-  for (ll i = 0; i <= m; i++) {
-    auto& [cy, cx] = points[i];
-    dp[i] = choose(cy + cx, cy);
-    for (int j = 0; j < i; j++) {
-      auto& [py, px] = points[j];
-      ll dy = cy - py;
-      ll dx = cx - px;
-      if (dy < 0 || dx < 0) continue;
-      dp[i] = sub(dp[i], dp[j] * choose(dy + dx, dy));
+  for (ll i = 0; i <= n; i++) {
+    auto& [r1, c1] = points[i];
+    dp[i] = choose(r1 - 1 + c1 - 1, r1 - 1);
+    for (ll j = 0; j < i; j++) {
+      auto& [r2, c2] = points[j];
+      if (c2 > c1) continue;
+      dp[i] -= dp[j] * choose(r1 - r2 + c1 - c2, r1 - r2) % mod;
+      dp[i] %= mod;
     }
+    if (dp[i] < 0) dp[i] += mod;
   }
 
-  cout << dp[m];
+  cout << dp[n];
 }
