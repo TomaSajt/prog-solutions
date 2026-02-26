@@ -6,10 +6,12 @@ int main() {
   cin >> n;
 
   for (int i = -n; i <= n; i++) {
-    for (int j = -n; j <= n; j++) {
-      int val = 5 - abs(i) - abs(j);
-      cout << (char)(val < 0 ? ' ' : ('0' + val)) << ' ';
-    }
+    int ai = abs(i);
+    cout << string(2 * ai, ' ');
+    int val = n - ai;
+    for (int j = 0; j <= val - 1; j++) cout << j << ' ';
+    cout << val;
+    for (int j = val - 1; j >= 0; j--) cout << ' ' << j;
     cout << '\n';
   }
 }
